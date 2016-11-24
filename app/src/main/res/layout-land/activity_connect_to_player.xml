@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_connect_to_player"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.bivanalzackyh.cardapplication.ConnectToPlayer">
+
+    <TextView
+        android:text="Touch each player's phone to this device.\nOr connect using the following IP address:"
+        android:textSize="15dp"
+        android:layout_width="wrap_content"
+        android:layout_alignParentStart="true"
+        android:id="@+id/instruction_tv"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"/>
+
+    <Button
+        android:text="Start a Game"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/game_start_btn"
+        android:onClick="game_start_table"
+        android:layout_alignTop="@+id/ip_number"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="31dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#00ffff"
+        android:textSize="20dp"
+        android:inputType="textPersonName"
+        android:text="0"
+        android:ems="10"
+        android:id="@+id/ip_number"
+        android:textAlignment="center"
+        android:layout_below="@+id/textView3"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:textColor="#ff00ff"
+        android:textSize="20dp"
+        android:inputType="textPersonName"
+        android:text="IP address"
+        android:ems="10"
+        android:id="@+id/ip_et"
+        android:textAlignment="center"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/instruction_tv" />
+
+    <TextView
+        android:text="Current number of participants"
+        android:textSize="15dp"
+        android:layout_width="match_parent"
+        android:id="@+id/textView3"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_below="@+id/ip_et"
+        android:layout_alignParentStart="true" />
+</RelativeLayout>

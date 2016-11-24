@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_player_join_table"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.bivanalzackyh.cardapplication.PlayerJoinTable">
+
+    <TextView
+        android:text="Touch this device to the table device, or\nEnter the IP address of the table device."
+        android:textSize="20dp"
+        android:layout_width="match_parent"
+        android:id="@+id/textView3"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_marginTop="18dp"
+        android:layout_below="@+id/ip_et"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="Join by IP Address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/game_start_btn"
+        android:layout_marginTop="200dp"
+        android:onClick="game_start_player (PlayerJoinTable)"
+        android:layout_below="@+id/join_table_btn"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="IP Address here"
+        android:ems="10"
+        android:id="@+id/ip_number"
+        android:textAlignment="center"
+        android:layout_marginTop="21dp"
+        android:layout_below="@+id/textView3"
+        android:layout_alignParentStart="true" />
+</RelativeLayout>

@@ -44,7 +44,7 @@ public class PlayerChoosingGame extends AppCompatActivity {
     }
 
     public void connect_player(View v){
-        Intent i = new Intent(this, ConnectToPlayer.class);
+        Intent i = new Intent(this, GameStartingTable.class);
         startActivity(i);
     }
 }

@@ -10,4 +10,78 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.bivanalzackyh.cardapplication.GameStartingTable">
 
+    <!--Linear Layout wrapper-->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--First linear layout : contains wifi information and selected game-->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/localInfo">
+
+            <TextView
+                android:text="Game"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/game_name"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textAlignment="center" />
+
+            <TextView
+                android:text="Connect to here:"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/connect_here"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textAlignment="center" />
+
+            <TextView
+                android:text="[Wifi N/A]"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/Table_ip"
+                android:layout_marginTop="15dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textAlignment="center"
+                android:textStyle="normal|bold" />
+
+            <TextView
+                android:text="[Domain N/A]"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:id="@+id/Table_SSID"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textAlignment="center" />
+        </LinearLayout>
+
+        <!--Second linear layout : list of players-->
+        <ScrollView
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </ScrollView>
+
+        <!--Dud layout to push the button to the buttom of the screen-->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+        </FrameLayout>
+
+        <!--Start button-->
+        <Button
+            android:text="Start"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/refresh"
+            style="@style/Widget.AppCompat.Button"
+            android:textAlignment="center"
+            android:background="@android:color/holo_orange_dark" />
+
+    </LinearLayout>
 </RelativeLayout>

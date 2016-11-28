@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/Users/Chitphentom/Documents/CS408_Brocard/bivanapp/cardapplication/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.0.0/jars/libs/internal_impl-25.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="665d21a8a069c96b4d9e8b434f5096d865b4e261">
+        <dex dex="/Users/Chitphentom/Documents/CS408_Brocard/bivanapp/cardapplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.0_19dbda816ea77ba624feaab9fd3b07372a32a82a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Chitphentom/Documents/CS408_Brocard/bivanapp/cardapplication/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a77fad3f7c1a44a8f7d24cad267e686d765dd8a1">
+        <dex dex="/Users/Chitphentom/Documents/CS408_Brocard/bivanapp/cardapplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_0110b257c9f5630c2e0cc6aecb81cf454ce6da39/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Chitphentom/Documents/CS408_Brocard/bivanapp/cardapplication/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="76fb65a4b41ea42dab8a1310ed772a2420c96b52">
+        <dex dex="/Users/Chitphentom/Documents/CS408_Brocard/bivanapp/cardapplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-media-compat-25.0.0_2d8af4f2cf4681c9b025885329aaf8e9c6eedff6/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Chitphentom/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/25.0.0/support-annotations-25.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a22d2cc94da87b254451fa8ed28afc30b4653773">
+        <dex dex="/Users/Chitphentom/Documents/CS408_Brocard/bivanapp/cardapplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-25.0.0_05fa02335723dfad338c0d65109e75cf6f8aa162/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Chitphentom/Documents/CS408_Brocard/bivanapp/cardapplication/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.0/jars/libs/internal_impl-25.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f2e3b9bc1ec25f652e8007ce7774c991e38f6a00">
+        <dex dex="/Users/Chitphentom/Documents/CS408_Brocard/bivanapp/cardapplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.0_7a1808a280a7f931a6a4e2a7f0a45a7ab0f09aac/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Chitphentom/Documents/CS408_Brocard/bivanapp/cardapplication/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.0.0/jars/libs/internal_impl-25.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ee5faf4dee5b6a4364bf51587871047dde7c703a">
+        <dex dex="/Users/Chitphentom/Documents/CS408_Brocard/bivanapp/cardapplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.0_61394ac1995539050fa7c1c0b9faa2333070b053/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Chitphentom/Documents/CS408_Brocard/bivanapp/cardapplication/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="75b1f366ff0bbc78f8b1f7cf0dc82e7c53afef6a">
+        <dex dex="/Users/Chitphentom/Documents/CS408_Brocard/bivanapp/cardapplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-compat-25.0.0_04d2ac5b7c917c17e6e2ab9367322af41fd34007/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Chitphentom/Documents/CS408_Brocard/bivanapp/cardapplication/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d29714cc76b38157e3cbd034c66e1ec808eb4c19">
+        <dex dex="/Users/Chitphentom/Documents/CS408_Brocard/bivanapp/cardapplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-vector-drawable-25.0.0_745fa3bc17774142cd1edf6c8ff7fb201912fc73/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Chitphentom/Documents/CS408_Brocard/bivanapp/cardapplication/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="8bc45ce1f63d1a391fd38b32a201be5a42f9c95d">
+        <dex dex="/Users/Chitphentom/Documents/CS408_Brocard/bivanapp/cardapplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-25.0.0_b6661f9d8f7011e2873012890bc02065d9595128/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Chitphentom/Documents/CS408_Brocard/bivanapp/cardapplication/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/Users/Chitphentom/Documents/CS408_Brocard/bivanapp/cardapplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-25.0.0_5bfeaec8cf87ee909c42a2b4ebb657ad4564949d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Chitphentom/Documents/CS408_Brocard/bivanapp/cardapplication/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.0.0/jars/libs/internal_impl-25.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="3b61a70884adaf0be3fc06c70c801e3e6df13133">
+        <dex dex="/Users/Chitphentom/Documents/CS408_Brocard/bivanapp/cardapplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.0_777efa77f883ba1947e094c43c4a6436546b9ccc/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Chitphentom/Documents/CS408_Brocard/bivanapp/cardapplication/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="53a420cd4f49274db6bd43475f8006ba67ef6bbd">
+        <dex dex="/Users/Chitphentom/Documents/CS408_Brocard/bivanapp/cardapplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-25.0.0_1ab2eea452387cca18a8ad951581ca64f09e5860/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Chitphentom/Documents/CS408_Brocard/bivanapp/cardapplication/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.0.0/jars/libs/internal_impl-25.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="e5343c9d19cb19ff55f6b268c7f3fe8c9d224f6f">
+        <dex dex="/Users/Chitphentom/Documents/CS408_Brocard/bivanapp/cardapplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.0_03acb62c4fde7ceb5aec3b3f97af217a65901747/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Chitphentom/Documents/CS408_Brocard/bivanapp/cardapplication/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="26674000177e45447a0326a6ad84612761199a13">
+        <dex dex="/Users/Chitphentom/Documents/CS408_Brocard/bivanapp/cardapplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-ui-25.0.0_01d715fbd328e4bee909b471984028e61944af8f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Chitphentom/Documents/CS408_Brocard/bivanapp/cardapplication/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ce95e4027f4ce7d1a1a2c1a53e1bd5657cc4ae2c">
+        <dex dex="/Users/Chitphentom/Documents/CS408_Brocard/bivanapp/cardapplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_036d496a27ae47cee772bc553770e24a39713fcc/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Chitphentom/Documents/CS408_Brocard/bivanapp/cardapplication/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="4ccbcda5c72027c7f7c14be9ff8640d9cb0d8da0">
+        <dex dex="/Users/Chitphentom/Documents/CS408_Brocard/bivanapp/cardapplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-utils-25.0.0_5c82eff2e4b0f5c66823ba3f87ed45ce08581646/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Chitphentom/Documents/CS408_Brocard/bivanapp/cardapplication/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="07daa0b6e1d455c82a38422ffe287c18823d339a">
+        <dex dex="/Users/Chitphentom/Documents/CS408_Brocard/bivanapp/cardapplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-fragment-25.0.0_b2c60b98b718ea97da3e98c3da221564b82e415e/classes.dex" />
+    </item>
+
+</items>

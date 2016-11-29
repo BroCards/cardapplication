@@ -5,6 +5,9 @@
     <!--wifi-->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
+    <!--Server-->
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"

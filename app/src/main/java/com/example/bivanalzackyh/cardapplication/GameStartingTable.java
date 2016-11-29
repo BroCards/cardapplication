@@ -43,6 +43,9 @@ public class GameStartingTable extends AppCompatActivity {
             SSIDField.setText(SSID);
         }
 
+        // starting the server
+
+
     }
 
 

@@ -3,10 +3,7 @@ package BroCardsNetworks;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.util.concurrent.Semaphore;
 
@@ -31,40 +28,18 @@ public class Client {
         responseJson = null;
     }
 
-
-    // Send: Socket, String ->
-    // send string message to a given socket
-    private void send(Socket socket, String msg) throws IOException {
-        // out data
-        OutputStreamWriter out = new OutputStreamWriter(socket.getOutputStream());
-        out.write(msg);
-
-        // message has been sent, over.
-        out.write("\r\n");
-    }
-
-    // readLine: Socket -> String
-    // read incoming line from given socket
-    private String readLine(Socket socket) throws IOException {
-        // input data
-        BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
-        // read line
-        return in.readLine();
-    }
-
     // sendData: JSONObject ->
     // Send Data to server and wait for reply
     public void sendData(JSONObject jsonObject, boolean wait_for_reply) {
         try {
             Socket socket = new Socket(dest, PORT);
 
-            send(socket, jsonObject.toString());
+            SocketIO.send(socket, jsonObject.toString());
 
             dataReady.tryAcquire();
 
             if (wait_for_reply) {
-                String reply = readLine(socket);
+                String reply = SocketIO.readLine(socket);
 
                 // convert to json
                 responseJson = new JSONObject(reply);
@@ -83,18 +58,18 @@ public class Client {
 
     // ListenNReply: ReplyRoutine ->
     // Read line from server, process and answer the server inquiry
-    public void ListenNReply(ReplyRoutine r) {
+    public void listenNReply(ReplyRoutine r) {
         try {
             Socket socket = new Socket(dest, PORT);
 
             // read Json object inquiry
-            String inquiry = readLine(socket);
+            String inquiry = SocketIO.readLine(socket);
 
             // do something about it
             JSONObject replyJson = r.processInquiry(new JSONObject(inquiry));
 
             // reply
-            send(socket, replyJson.toString());
+            SocketIO.send(socket, replyJson.toString());
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -103,12 +78,12 @@ public class Client {
         }
     }
 
-    // JustListen: ->
+    // justListen: ->
     // Read line from server, convert to JSON and close
-    public void JustListen() {
+    public void justListen() {
         try {
             Socket socket = new Socket(dest, PORT);
-            String msg = readLine(socket);
+            String msg = SocketIO.readLine(socket);
 
             dataReady.tryAcquire();
 

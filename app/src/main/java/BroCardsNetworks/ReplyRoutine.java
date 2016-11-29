@@ -2,8 +2,6 @@ package BroCardsNetworks;
 
 import org.json.JSONObject;
 
-import java.net.Socket;
-
 /**
  * ReplyRoutine
  * Interface use to implement reply method which process incoming

@@ -7,12 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="11596949-df99-4678-ada3-a45df4c73df9" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/BroCardsNetworks/Client.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/BroCardsNetworks/ReplyRoutine.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/BroCardsNetworks/Server.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/bivanalzackyh/cardapplication/GameStartingTable.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/bivanalzackyh/cardapplication/GameStartingTable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/BroCardsNetworks/Client.java" afterPath="$PROJECT_DIR$/app/src/main/java/BroCardsNetworks/Client.java" />
     </list>
     <ignored path="cardapplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -83,12 +78,12 @@
       <file leaf-file-name="Client.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/BroCardsNetworks/Client.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="495">
-              <caret line="33" column="4" selection-start-line="33" selection-start-column="4" selection-end-line="33" selection-end-column="4" />
+            <state relative-caret-position="465">
+              <caret line="117" column="27" selection-start-line="117" selection-start-column="27" selection-end-line="117" selection-end-column="27" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#3607#3608#0" expanded="true" />
-                <element signature="e#3650#3651#0" expanded="true" />
+                <element signature="e#3653#3654#0" expanded="true" />
+                <element signature="e#3696#3697#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -2408,12 +2403,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/BroCardsNetworks/Client.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="33" column="4" selection-start-line="33" selection-start-column="4" selection-end-line="33" selection-end-column="4" />
+        <state relative-caret-position="465">
+          <caret line="117" column="27" selection-start-line="117" selection-start-column="27" selection-end-line="117" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3607#3608#0" expanded="true" />
-            <element signature="e#3650#3651#0" expanded="true" />
+            <element signature="e#3653#3654#0" expanded="true" />
+            <element signature="e#3696#3697#0" expanded="true" />
           </folding>
         </state>
       </provider>

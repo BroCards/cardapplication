@@ -31,7 +31,7 @@ public class Client {
         responseJson = null;
     }
 
-    
+
     // Send: Socket, String ->
     // send string message to a given socket
     private void send(Socket socket, String msg) throws IOException {
@@ -113,6 +113,9 @@ public class Client {
             dataReady.tryAcquire();
 
             responseJson = new JSONObject(msg);
+
+            // close
+            socket.close();
 
         } catch (IOException e) {
             e.printStackTrace();

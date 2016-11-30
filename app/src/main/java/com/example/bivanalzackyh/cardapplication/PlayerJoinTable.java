@@ -42,7 +42,14 @@ public class PlayerJoinTable extends AppCompatActivity {
                 // TODO: get destination IP address and port
                 final View viewParam = view;
                 final String targetIP = ipField.getText().toString();
-                final int port = Integer.parseInt(portField.getText().toString());
+                int x;
+                try {
+                    x = Integer.parseInt(portField.getText().toString());
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                    return;
+                }
+                final int port = x;
 
                 // Check-in
                 // get wifi information

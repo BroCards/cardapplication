@@ -2,6 +2,7 @@ package com.example.bivanalzackyh.cardapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.support.v7.app.AppCompatActivity;
@@ -97,7 +98,12 @@ public class GameStartingTable extends AppCompatActivity {
                     // if server is not running anymore, break
                     if (!server.isRunning()) break;
                     // set text on number of participant
-                    numParticipant.setText(String.valueOf(num_participants));
+                    final int x = num_participants;
+                    runOnUiThread(new Runnable() {
+                        public void run(){
+                            numParticipant.setText(String.valueOf(x));
+                        }
+                    });
                     Log.d("Server", String.format(Locale.ENGLISH, "Total connect %d", num_participants));
                 }
 
@@ -113,20 +119,24 @@ public class GameStartingTable extends AppCompatActivity {
         });
 
         serverThread.start();
-
-        StartBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // start new activity here
-                moveOn(view);
-            }
-        });
     }
 
     // activateBtn: ->
     // change color of button
     void activateBtn() {
-        StartBtn.setBackgroundColor(17170457);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                StartBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        // start new activity here
+                        moveOn(view);
+                    }
+                });
+                StartBtn.setBackgroundColor(0xe67e22);
+            }
+        });
     }
 
     // setNumParticipants: int ->

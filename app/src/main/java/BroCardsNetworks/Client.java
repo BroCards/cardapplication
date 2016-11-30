@@ -93,6 +93,7 @@ public class Client {
             // close
             socket.close();
 
+            dataReady.release();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {

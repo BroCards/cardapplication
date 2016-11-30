@@ -14,7 +14,9 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
 
         <!--First linear layout : contains wifi information and selected game-->
         <LinearLayout
@@ -87,7 +89,7 @@
                 android:layout_marginTop="75dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView6"
+                android:id="@+id/num_participant"
                 android:textAlignment="center" />
         </FrameLayout>
 
@@ -96,7 +98,7 @@
             android:text="Start"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/refresh"
+            android:id="@+id/table_start_btn"
             style="@style/Widget.AppCompat.Button"
             android:textAlignment="center"
             android:background="@android:color/holo_orange_dark" />

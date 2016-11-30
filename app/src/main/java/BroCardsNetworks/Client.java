@@ -21,22 +21,33 @@ public class Client {
     private Semaphore dataReady;        // semaphore in case of this class has been wrap in other thread
     private JSONObject responseJson;    // response JSON
 
-    Client(String destination, int port) {
+    private boolean success;
+
+    public Client(String destination, int port) {
         dest = destination;
         PORT = port;
         dataReady = new Semaphore(0);
         responseJson = null;
+        success  = false;
+    }
+
+    // reset: ->
+    // reset semaphore and success boolean
+    private void reset() {
+        while(dataReady.tryAcquire());
+        success = false;
     }
 
     // sendData: JSONObject ->
     // Send Data to server and wait for reply
     public void sendData(JSONObject jsonObject, boolean wait_for_reply) {
         try {
+            reset();
+
             Socket socket = new Socket(dest, PORT);
 
             SocketIO.send(socket, jsonObject.toString());
 
-            dataReady.tryAcquire();
 
             if (wait_for_reply) {
                 String reply = SocketIO.readLine(socket);
@@ -47,12 +58,14 @@ public class Client {
             // close
             socket.close();
 
-            dataReady.release();
+            success = true;
 
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            dataReady.release();
         }
     }
 
@@ -83,21 +96,23 @@ public class Client {
     // Read line from server, convert to JSON and close
     public void justListen() {
         try {
+            reset();
+
             Socket socket = new Socket(dest, PORT);
             String msg = SocketIO.readLine(socket);
-
-            dataReady.tryAcquire();
 
             responseJson = new JSONObject(msg);
 
             // close
             socket.close();
 
-            dataReady.release();
+            success = true;
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
+        } finally {
+            dataReady.release();
         }
     }
 
@@ -112,7 +127,10 @@ public class Client {
     public JSONObject getResponseJson() {
         try {
             dataReady.acquire();
-            return responseJson;
+            if (success) {
+                return responseJson;
+            }
+            return null;
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

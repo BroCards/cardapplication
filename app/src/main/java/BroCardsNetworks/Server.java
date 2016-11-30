@@ -23,15 +23,23 @@ import java.util.concurrent.Semaphore;
 public class Server {
     private Semaphore dataProtector;
     private ServerSocket serverSocket;
+    private boolean status = false;
 
     /* Server: Basic Server Code */
-    Server (int port) {
+    public Server (int port) {
         try {
             serverSocket = new ServerSocket(port);
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            dataProtector = new Semaphore(1);
+            status = true;
         }
-        dataProtector = new Semaphore(1);
+
+    }
+
+    public boolean isRunning() {
+        return status;
     }
 
     /* ListenNReply: ReplyRoutine ->
@@ -57,6 +65,7 @@ public class Server {
             socket.close();
         } catch (IOException e) {
             e.printStackTrace();
+            status = false;
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -76,6 +85,7 @@ public class Server {
 
         } catch (IOException e) {
             e.printStackTrace();
+            status = false;
         }
     }
 

@@ -70,6 +70,7 @@ public class Client {
 
             // reply
             SocketIO.send(socket, replyJson.toString());
+            socket.close();
 
         } catch (IOException e) {
             e.printStackTrace();

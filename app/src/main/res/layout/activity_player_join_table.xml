@@ -11,7 +11,7 @@
     tools:context="com.example.bivanalzackyh.cardapplication.PlayerJoinTable">
 
     <TextView
-        android:text="Touch this device to the table device, or\nEnter the IP address of the table device."
+        android:text="Enter the IP address of the table device."
         android:textSize="20dp"
         android:layout_width="match_parent"
         android:id="@+id/textView3"

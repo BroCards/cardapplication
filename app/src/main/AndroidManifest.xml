@@ -31,7 +31,9 @@
         <activity android:name=".Table3Player" />
         <activity android:name=".Table4Player" />
         <activity android:name=".PlayerHand" />
-        <activity android:name=".PlayerJoined"></activity>
+        <activity android:name=".PlayerJoined" />
+        <activity android:name=".CongratulateWinning" />
+        <activity android:name=".PoorLosing"></activity>
     </application>
 
 </manifest>

@@ -30,7 +30,8 @@
         <activity android:name=".Table2Player" />
         <activity android:name=".Table3Player" />
         <activity android:name=".Table4Player" />
-        <activity android:name=".PlayerHand"></activity>
+        <activity android:name=".PlayerHand" />
+        <activity android:name=".PlayerJoined"></activity>
     </application>
 
 </manifest>

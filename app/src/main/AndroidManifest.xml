@@ -2,11 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.bivanalzackyh.cardapplication">
 
-    <!--wifi-->
+    <!-- wifi -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
-    <!--Server-->
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- Server -->
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -17,6 +17,7 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -25,7 +26,10 @@
         <activity android:name=".PlayerManageGame" />
         <activity android:name=".PlayerJoinTable" />
         <activity android:name=".GameStartingPlayer" />
-        <activity android:name=".GameStartingTable"></activity>
+        <activity android:name=".GameStartingTable" />
+        <activity android:name=".Table2Player" />
+        <activity android:name=".Table3Player" />
+        <activity android:name=".Table4Player"></activity>
     </application>
 
 </manifest>

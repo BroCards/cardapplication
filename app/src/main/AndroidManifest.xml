@@ -29,7 +29,8 @@
         <activity android:name=".GameStartingTable" />
         <activity android:name=".Table2Player" />
         <activity android:name=".Table3Player" />
-        <activity android:name=".Table4Player"></activity>
+        <activity android:name=".Table4Player" />
+        <activity android:name=".PlayerHand"></activity>
     </application>
 
 </manifest>

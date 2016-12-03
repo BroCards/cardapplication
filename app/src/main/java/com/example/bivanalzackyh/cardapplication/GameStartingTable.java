@@ -1,10 +1,12 @@
 package com.example.bivanalzackyh.cardapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -46,6 +48,15 @@ public class GameStartingTable extends AppCompatActivity {
         // starting the server
 
 
+    }
+
+    public void start_game(View v){
+        //this function is intended to be branch
+        //that it will be dependent of the number of players in the board
+        Intent i = new Intent(this, Table2Player.class);
+        Intent j = new Intent(this, Table3Player.class);
+        Intent k = new Intent(this, Table4Player.class);
+        startActivity(i);
     }
 
 

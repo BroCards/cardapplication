@@ -5,16 +5,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-public class PlayerJoinTable extends AppCompatActivity {
+public class PoorLosing extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_player_join_table);
+        setContentView(R.layout.activity_poor_losing);
     }
 
-    public void game_start_player(View v){
-        Intent i = new Intent(this, PlayerJoined.class);
+    public void back_to_main_2(View v){
+        Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
     }
 }

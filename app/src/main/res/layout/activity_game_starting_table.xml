@@ -99,7 +99,8 @@
             android:id="@+id/refresh"
             style="@style/Widget.AppCompat.Button"
             android:textAlignment="center"
-            android:background="@android:color/holo_orange_dark" />
+            android:background="@android:color/holo_orange_dark"
+            android:onClick="start_game"/>
 
     </LinearLayout>
 </RelativeLayout>

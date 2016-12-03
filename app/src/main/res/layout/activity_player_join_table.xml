@@ -27,9 +27,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/game_start_btn"
         android:layout_marginTop="200dp"
-        android:onClick="game_start_player (PlayerJoinTable)"
         android:layout_below="@+id/join_table_btn"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:onClick="game_start_player" />
 
     <EditText
         android:layout_width="match_parent"

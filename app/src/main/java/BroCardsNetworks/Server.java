@@ -42,23 +42,19 @@ public class Server {
         return status;
     }
 
-    /* ListenNReply: ReplyRoutine ->
+    /* ListenNReply: ReplyRoutine -> JSONObject
     *  Start listening for incoming connection from client
     *  However, this version of server can serve 1 and only 1 client at the time
     *  There's no need to serve more than 1 client at the time since this runs on
     *  the *PLAYER* side
     */
-    public void listen(ReplyRoutine r) {
+    public JSONObject listen(ReplyRoutine r) {
         try {
             // accept connection
             Socket socket = serverSocket.accept();
 
             // read inquiry
             JSONObject inquiry = new JSONObject(SocketIO.readLine(socket));
-
-            /*
-            { addr: "192.129.1.1", port: 1111 }
-             */
 
             // process
             JSONObject reply = r.processInquiry(inquiry);
@@ -67,12 +63,25 @@ public class Server {
             SocketIO.send(socket, reply.toString());
 
             socket.close();
+
+            return inquiry;
         } catch (IOException e) {
             e.printStackTrace();
             status = false;
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        return null;
+    }
+
+    public JSONObject listen(JSONObject reply) {
+        final JSONObject to_reply = reply;
+        return listen(new ReplyRoutine() {
+            @Override
+            public JSONObject processInquiry(JSONObject json) {
+                return to_reply;
+            }
+        });
     }
 
     // Talk: String ->

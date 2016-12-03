@@ -18,10 +18,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.Semaphore;
 
+import BroCardsNetworks.ReplyRoutine;
 import BroCardsNetworks.Server;
 
 public class GameStartingTable extends AppCompatActivity {
@@ -39,9 +41,8 @@ public class GameStartingTable extends AppCompatActivity {
     Server server;
 
     Thread serverThread;
-    private int num_participants;
 
-    private List<JSONObject> participants = new ArrayList<>();
+    private JSONArray participants = new JSONArray();
 
 
     @Override
@@ -90,28 +91,20 @@ public class GameStartingTable extends AppCompatActivity {
                 // set text
                 IPField.setText(String.format(Locale.ENGLISH, "%s\n%d", IPField.getText().toString(), i));
 
-                JSONObject replyObj = new JSONObject();
-                try {
-                    replyObj.accumulate("Message", "Welcome");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                while (participants.size() < 2) {
-//                    server.talk(replyObj);
-                    JSONObject playerInfo = server.listen(replyObj);
-                    participants.add(playerInfo);
+                while (participants.length() < 4) {
+                    JSONObject playerInfo = server.listen(new TableLobbyReply());
+                    participants.put(playerInfo);
 
                     // if server is not running anymore, break
                     if (!server.isRunning()) break;
                     // set text on number of participant
-                    final int x = num_participants;
+                    final int x = participants.length();
                     runOnUiThread(new Runnable() {
                         public void run(){
                             numParticipant.setText(String.valueOf(x));
                         }
                     });
-                    Log.d("Server", String.format(Locale.ENGLISH, "Total connect %d", num_participants));
+                    Log.d("Server", String.format(Locale.ENGLISH, "Total connect %d", participants.length()));
                 }
 
                 if (!server.isRunning()) {
@@ -126,7 +119,7 @@ public class GameStartingTable extends AppCompatActivity {
         StartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (participants.size() < 2) {
+                if (participants.length() < 2) {
                     return;
                 }
                 // start new activity here
@@ -146,12 +139,6 @@ public class GameStartingTable extends AppCompatActivity {
         });
     }
 
-    // setNumParticipants: int ->
-    // set number of participants
-    void setNumParticipants(int i) {
-        numParticipant.setText(i);
-    }
-
     void makeToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
@@ -167,12 +154,35 @@ public class GameStartingTable extends AppCompatActivity {
         }
     }
 
-    void moveOn(View v, List<JSONObject> participants) {
-        Intent i = new Intent(this, ConnectToPlayer.class);
+    void moveOn(View v, JSONArray participants) {
+        Class x;
+        switch (participants.length()) {
+            case 2:
+
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            default:
+                Log.e("Server", "Move on with undesirable players");
+        }
+        x = ConnectToPlayer.class;
+        Intent i = new Intent(this, x);
+        i.putExtra("Participants", participants.toString());
 
         startActivity(i);
     }
 
-
-
 }
+
+/**
+ *  the participants JSON object is {"IP": [IP address in integer form]}
+ */
+class TableLobbyReply implements ReplyRoutine {
+    @Override
+    public JSONObject processInquiry(JSONObject json) {
+        return null;
+    }
+}
+

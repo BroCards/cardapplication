@@ -1,0 +1,5 @@
+# ignoreing file
+.idea/*
+local.properties
+*.lock
+*.bin

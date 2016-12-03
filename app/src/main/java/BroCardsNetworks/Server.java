@@ -48,13 +48,17 @@ public class Server {
     *  There's no need to serve more than 1 client at the time since this runs on
     *  the *PLAYER* side
     */
-    public void Listen(ReplyRoutine r) {
+    public void listen(ReplyRoutine r) {
         try {
             // accept connection
             Socket socket = serverSocket.accept();
 
             // read inquiry
             JSONObject inquiry = new JSONObject(SocketIO.readLine(socket));
+
+            /*
+            { addr: "192.129.1.1", port: 1111 }
+             */
 
             // process
             JSONObject reply = r.processInquiry(inquiry);

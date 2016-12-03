@@ -16,7 +16,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
-        sha1="1ebf243fc69e52c9d3f5d39006cad228f74c2d65">
+        sha1="02877136c178d41a5dd4efbbc307848cef171395">
         <dex dex="/Users/Chitphentom/Documents/CS408_Brocard/bivanapp/cardapplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_0110b257c9f5630c2e0cc6aecb81cf454ce6da39/classes.dex" />
     </item>
     <item
@@ -142,7 +142,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
-        sha1="2d2c332537e7f67bbe6c1d840fd165581776de4c">
+        sha1="f42470690af49ceb292bd50ef852458acf3ca838">
         <dex dex="/Users/Chitphentom/Documents/CS408_Brocard/bivanapp/cardapplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_036d496a27ae47cee772bc553770e24a39713fcc/classes.dex" />
     </item>
     <item

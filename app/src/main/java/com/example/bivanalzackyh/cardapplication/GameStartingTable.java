@@ -13,9 +13,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.Semaphore;
 
@@ -36,6 +39,9 @@ public class GameStartingTable extends AppCompatActivity {
     Server server;
 
     Thread serverThread;
+    private int num_participants;
+
+    private List<JSONObject> participants = new ArrayList<>();
 
 
     @Override
@@ -90,10 +96,11 @@ public class GameStartingTable extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                int num_participants = 0;
-                while (num_participants < 2) {
-                    server.talk(replyObj);
-                    num_participants++;
+
+                while (participants.size() < 2) {
+//                    server.talk(replyObj);
+                    JSONObject playerInfo = server.listen(replyObj);
+                    participants.add(playerInfo);
 
                     // if server is not running anymore, break
                     if (!server.isRunning()) break;
@@ -111,14 +118,21 @@ public class GameStartingTable extends AppCompatActivity {
                     return;
                 }
 
-                // done!
-                // activate the start button
-
                 activateBtn();
             }
         });
-
         serverThread.start();
+
+        StartBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (participants.size() < 2) {
+                    return;
+                }
+                // start new activity here
+                moveOn(view, participants);
+            }
+        });
     }
 
     // activateBtn: ->
@@ -127,13 +141,6 @@ public class GameStartingTable extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                StartBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        // start new activity here
-                        moveOn(view);
-                    }
-                });
                 StartBtn.setBackgroundColor(0xe67e22);
             }
         });
@@ -160,8 +167,9 @@ public class GameStartingTable extends AppCompatActivity {
         }
     }
 
-    void moveOn(View v) {
+    void moveOn(View v, List<JSONObject> participants) {
         Intent i = new Intent(this, ConnectToPlayer.class);
+
         startActivity(i);
     }
 

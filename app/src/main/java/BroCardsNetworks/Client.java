@@ -40,13 +40,13 @@ public class Client {
 
     // sendData: JSONObject ->
     // Send Data to server and wait for reply
-    public void sendData(JSONObject jsonObject, boolean wait_for_reply) {
+    public void sendData(String msg, boolean wait_for_reply) {
         try {
             reset();
 
             Socket socket = new Socket(dest, PORT);
 
-            SocketIO.send(socket, jsonObject.toString());
+            SocketIO.send(socket, msg);
 
 
             if (wait_for_reply) {
@@ -119,7 +119,7 @@ public class Client {
     // JustSend: JSONObject ->
     // Send JsonObject to server and close
     public void justSend(JSONObject jsonObject) {
-        sendData(jsonObject, false);
+        sendData(jsonObject.toString(), false);
     }
 
     // getResponseJson: -> JSONObject

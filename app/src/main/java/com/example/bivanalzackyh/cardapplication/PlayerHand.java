@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
@@ -19,6 +20,8 @@ public class PlayerHand extends AppCompatActivity {
 
     private RecyclerView mplayer_card;
     private RecyclerView.LayoutManager mLayoutManager;
+    private ArrayList<Integer> games;
+    private RecyclerView.Adapter adapter;
 
 
 
@@ -57,13 +60,17 @@ public class PlayerHand extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         mplayer_card.setLayoutManager(mLayoutManager);
 
-        int[] games = {0,1,2,3};
-        RecyclerView.Adapter adapter = new MyAdapter(games);
+        games = new ArrayList<>();
+        games.add(0);
+        games.add(1);
+        games.add(2);
+        games.add(3);
+        adapter = new MyAdapter(games);
         mplayer_card.setAdapter(adapter);
     }
 
     public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-        private int[] mDataset;
+        private ArrayList<Integer> mDataset;
         private int[] cards_id = {assoc_card.get(0), assoc_card.get(1), assoc_card.get(2), assoc_card.get(3)};
 
         // Provide a reference to the views for each data item
@@ -81,7 +88,7 @@ public class PlayerHand extends AppCompatActivity {
         }
 
         // Provide a suitable constructor (depends on the kind of dataset)
-        public MyAdapter(int[] myDataset) {
+        public MyAdapter(ArrayList<Integer> myDataset) {
             mDataset = myDataset;
         }
 
@@ -102,7 +109,7 @@ public class PlayerHand extends AppCompatActivity {
         public void onBindViewHolder(ViewHolder holder, int position) {
             // - get element from your dataset at this position
             // - replace the contents of the view with that element
-            holder.card_im.setImageResource(cards_id[position]);
+            holder.card_im.setImageResource(cards_id[mDataset.get(position)]);
             holder.card_im.setTag(R.id.activity_player_hand, position);
             holder.card_im.setOnClickListener(ClickListener);
         }
@@ -112,10 +119,11 @@ public class PlayerHand extends AppCompatActivity {
                 //for now it's just getting card disappear when being clicked
                 //should be updated later on
                 int position = (int) v.getTag(R.id.activity_player_hand);
+                mDataset.remove(position);
                 mplayer_card.removeViewAt(position);
-                RecyclerView.Adapter adapter1 = mplayer_card.getAdapter();
-                adapter1.notifyItemRemoved(position);
-
+                adapter.notifyItemRemoved(position);
+                adapter.notifyItemRangeChanged(position, mDataset.size());
+                adapter.notifyDataSetChanged();
                 //still something wrong in here
                 //anyway I will be back on this later on
             }
@@ -124,7 +132,7 @@ public class PlayerHand extends AppCompatActivity {
         // Return the size of your dataset (invoked by the layout manager)
         @Override
         public int getItemCount() {
-            return mDataset.length;
+            return mDataset.size();
         }
     }
     }

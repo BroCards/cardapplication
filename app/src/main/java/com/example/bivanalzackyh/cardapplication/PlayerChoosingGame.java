@@ -12,6 +12,7 @@ import android.widget.TextView;
 public class PlayerChoosingGame extends AppCompatActivity {
     private ListView listview;
     private TextView description_tv;
+    private String game_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +22,7 @@ public class PlayerChoosingGame extends AppCompatActivity {
         listview = (ListView) findViewById(R.id.listview);
         description_tv = (TextView) findViewById(R.id.description_tv);
 
-        String[] games = {"Cangkul", "Mini-Hearts"};
+        final String[] games = {"Cangkul", "Mini-Hearts"};
         final String[] descriptions = {
             "Author: Ivan\n\n" +
             "Description:\n" +
@@ -35,13 +36,14 @@ public class PlayerChoosingGame extends AppCompatActivity {
             "Hearts are worth 1 penalty point each, and Queen of Spades is worth 13. " +
             "Player that takes the least amount of penalty points wins."
         };
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, games);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, games);
 
         listview.setAdapter(adapter);
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 description_tv.setText(descriptions[i]);
+                game_name = games[i];
             }
         });
     }

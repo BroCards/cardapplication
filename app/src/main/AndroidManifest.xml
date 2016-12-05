@@ -15,11 +15,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
         </activity>
         <activity android:name=".PlayerChoosingGame" />
         <activity android:name=".ConnectToPlayer" />
@@ -27,10 +27,10 @@
         <activity android:name=".PlayerJoinTable" />
         <activity android:name=".GameStartingPlayer" />
         <activity android:name=".GameStartingTable" />
-        <activity android:name=".Table2Player" />
-        <activity android:name=".Table3Player" />
-        <activity android:name=".Table4Player" />
-        <activity android:name=".PlayerHand" />
+        <activity android:name=".Table2Player" android:screenOrientation="landscape"/>
+        <activity android:name=".Table3Player" android:screenOrientation="landscape"/>
+        <activity android:name=".Table4Player" android:screenOrientation="landscape"/>
+        <activity android:name=".PlayerHand" android:screenOrientation="landscape"/>
         <activity android:name=".PlayerJoined" />
         <activity android:name=".CongratulateWinning" />
         <activity android:name=".PoorLosing"></activity>

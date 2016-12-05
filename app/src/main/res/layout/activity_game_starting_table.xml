@@ -99,7 +99,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/table_start_btn"
-            style="@style/Widget.AppCompat.Button"
             android:textAlignment="center"
             android:background="@android:color/holo_orange_dark"
             android:onClick="start_game"/>

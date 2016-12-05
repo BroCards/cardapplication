@@ -66,7 +66,7 @@ public class PlayerJoinTable extends AppCompatActivity {
                             send.put("IP", wifiInf.getIpAddress());
 
                             // sendData
-                            client.sendData(send, true);
+                            client.sendData(send.toString(), true);
 
                             // wait for data to be ready
                             JSONObject reply = client.getResponseJson();

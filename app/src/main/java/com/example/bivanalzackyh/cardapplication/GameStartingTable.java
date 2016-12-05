@@ -74,8 +74,6 @@ public class GameStartingTable extends AppCompatActivity {
             return;
         }
 
-        // semaphore for main thread to wait
-
         // listen for participant
         // new thread
         serverThread = new Thread(new Runnable() {
@@ -158,31 +156,56 @@ public class GameStartingTable extends AppCompatActivity {
         Class x;
         switch (participants.length()) {
             case 2:
-
+                x = Table2Player.class;
                 break;
             case 3:
+                x = Table3Player.class;
                 break;
             case 4:
+                x = Table4Player.class;
                 break;
             default:
                 Log.e("Server", "Move on with undesirable players");
+                x = this.getClass();
         }
-        x = ConnectToPlayer.class;
         Intent i = new Intent(this, x);
         i.putExtra("Participants", participants.toString());
-
         startActivity(i);
     }
 
-}
 
-/**
- *  the participants JSON object is {"IP": [IP address in integer form]}
- */
-class TableLobbyReply implements ReplyRoutine {
-    @Override
-    public JSONObject processInquiry(JSONObject json) {
-        return null;
+    /**
+     *  the participants JSON object is {"IP": [IP address in integer form]}
+     */
+    class TableLobbyReply implements ReplyRoutine {
+        @Override
+        public JSONObject processInquiry(JSONObject json) {
+            // add to participants list
+            try {
+                // reply
+                JSONObject reply = new JSONObject();
+
+                // check json
+                if (json.length() != 1 && json.has("IP")) {
+                    reply.put("Success", false);
+                    return reply;
+                } else {
+                    reply.put("Success", true);
+                }
+
+                // put player name
+                String playerName = String.format(Locale.ENGLISH, "Player %d", participants.length() + 1);
+                reply.put("Name", playerName);
+
+                // put JSONObject into the list
+                participants.put(json);
+
+                return reply;
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
     }
 }
 

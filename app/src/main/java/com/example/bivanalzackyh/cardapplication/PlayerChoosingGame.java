@@ -12,7 +12,7 @@ import android.widget.TextView;
 public class PlayerChoosingGame extends AppCompatActivity {
     private ListView listview;
     private TextView description_tv;
-    private String game_name;
+    private String selected_game;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +23,10 @@ public class PlayerChoosingGame extends AppCompatActivity {
         description_tv = (TextView) findViewById(R.id.description_tv);
 
         final String[] games = {"Cangkul", "Mini-Hearts"};
+
+        // game_class contains the class name of those games
+        final String[] games_class = {"BroCardsLogic.CangKul", "BroCardsLogic.Mini_Hearts"};
+
         final String[] descriptions = {
             "Author: Ivan\n\n" +
             "Description:\n" +
@@ -43,13 +47,14 @@ public class PlayerChoosingGame extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 description_tv.setText(descriptions[i]);
-                game_name = games[i];
+                selected_game = games_class[i];
             }
         });
     }
 
     public void connect_player(View v){
         Intent i = new Intent(this, GameStartingTable.class);
+        i.putExtra("GAME", selected_game);
         startActivity(i);
     }
 }

@@ -21,7 +21,7 @@ only works for games where:
 */
 
 class BroCards {
-    
+
     private int numPlayers;
     private int[] deck;
     private int deckLen;
@@ -31,7 +31,7 @@ class BroCards {
     private int[] handLen;
     private int[] played;
     private int[] score;
-    
+
     public int[] getDeck() {return deck;}
     public int getDeckLen() {return deckLen;}
     public int[] getDiscard() {return discard;}
@@ -40,7 +40,7 @@ class BroCards {
     public int[] getHandLen() {return handLen;}
     public int[] getPlayed() {return played;}
     public int[] getScore() {return score;}
-    
+
     private int findInArray(int elem, int[] array, int arrayLen) {
         for (int i = 0; i < arrayLen; i++) {
             if (array[i] == elem)
@@ -48,7 +48,7 @@ class BroCards {
         }
         return -1;
     }
-    
+
     private int[] removeFromArray(int elem, int[] array, int arrayLen) {
         for (int i = 0; i < arrayLen; i++) {
             if (array[i] == elem) {
@@ -65,7 +65,7 @@ class BroCards {
         }
         return array;
     }
-    
+
 	private JSONObject talkToPlayer(int player, JSONObject message) {
         /* keys:
         type: string, what type of request it is:
@@ -78,20 +78,20 @@ class BroCards {
         card: int, card number, used for type "insert"/"remove"
         score: int, score to be updated to, used for type "score"
         win: boolean, whether the player wins or not, used for type "end"
-        
+
         if requestResponse is false, return null (it won't be read)
         otherwise, return a JSONObject with following keys:
             type: "response"
             requestResponse: "false"
             card: int, card number selected
         or if you want to change it, tell me
-        
+
         see top of code for explanation of card numbers
         */
-        
+
 		// TODO
 	}
-	
+
     public BroCards(int numOfPlayers) {
         numPlayers = numOfPlayers;
         deck = new int[52];
@@ -101,7 +101,7 @@ class BroCards {
         hand = new int[numPlayers][52];
         handLen = new int[numPlayers];
         played = new int[numPlayers];
-        
+
         for (int i = 0; i < 52; i++) {
             deck[i] = -1;
             discard[i] = -1;
@@ -115,7 +115,7 @@ class BroCards {
             score[p] = 0;
         }
     }
-    
+
     private View viewOfArea(int area) {
         switch (area) {
             case 0:
@@ -133,12 +133,12 @@ class BroCards {
         }
         return null;
     }
-    
+
     public void insertCard(int card, int area) {
         // add card to area
         // 1. find the area
         // 2. append the card to area
-        
+
         switch (area) {
             case 0:
                 // case for deck
@@ -171,14 +171,14 @@ class BroCards {
                 break;
         }
     }
-    
+
     public void removeCard(int card, int area) {
         // remove card from area
         // 1. find the area
         // 2. find the card from area
         // 3. remove it
         // 4. consolidate the rest into a contiguous array
-        
+
         switch (area) {
             case 0:
                 // case for deck
@@ -220,44 +220,44 @@ class BroCards {
                 break;
         }
     }
-    
+
     public int requestMove(int player) {
         // request move from player
         // 1. find the player
         // 2. prompt for a move
         // 3. record the selection
         // 4. return to table
-        
+
         JSONObject msg = new JSONObject();
         msg.put("requestResponse", true);
         msg.put("type", "request");
         JSONObject resp = talkToPlayer(player, msg);
         return resp.getInt("card");
     }
-    
+
     public void updateScore(int player, int score) {
         // update score of player
         // 1. find the player
         // 2. find the score display
         // 3. update to the score
-        
+
         JSONObject msg = new JSONObject();
         msg.put("requestResponse", false);
         msg.put("type", "score");
         msg.put("score", score);
         talkToPlayer(player, msg);
     }
-    
+
     public void endGame() {
         // end game; must be called before quitting the game
         // 1. compute winner(s) (based on score)
         // 2. broadcast whether they win or not to everyone
-        
+
         int maxscore = score[0];
         boolean[] isWinner = new boolean[numPlayers];
         for (int p = 0; p < numPlayers; p++) isWinner[p] = false;
         isWinner[0] = true;
-        
+
         for (int i = 1; i < numPlayers; i++) {
             if (score[i] > maxscore) {
                 maxscore = score[i];
@@ -267,7 +267,7 @@ class BroCards {
                 isWinner[i] = true;
             }
         }
-        
+
         for (int p = 0; p < numPlayers; p++) {
             JSONObject msg = new JSONObject();
             msg.put("requestResponse", false);
@@ -276,11 +276,11 @@ class BroCards {
             talkToPlayer(p, msg);
         }
     }
-    
+
     public void shuffleDeck() {
         // shuffle the deck
         // Fisher-Yates algorithm
-        
+
         for (int i = deckLen - 1; i > 0; i--) {
             int j = (Math.random() * (i+1));
             int temp = deck[j];
@@ -288,5 +288,5 @@ class BroCards {
             deck[i] = temp;
         }
     }
-    
+
 }

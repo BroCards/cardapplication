@@ -44,20 +44,29 @@ public class GameStartingTable extends AppCompatActivity {
 
     private JSONArray participants = new JSONArray();
 
+    String gameClass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_starting_table);
 
+        // getting game name
+        gameClass = getIntent().getExtras().getString("GAME");
+        Log.d("Game name", gameClass);
+
         // layout instances
         IPField = (TextView) findViewById(R.id.Table_ip);
         SSIDField = (TextView) findViewById(R.id.Table_SSID);
         StartBtn = (Button) findViewById(R.id.table_start_btn);
         numParticipant = (TextView) findViewById(R.id.num_participant);
+        gameInfo = (TextView) findViewById(R.id.game_name);
 
         // grey out start button
         StartBtn.setBackgroundColor(0xbdc3c7);
+
+        // view the game name
+        gameInfo.setText(gameClass);
 
         // get wifi information
         WifiManager wifiObj = (WifiManager) getSystemService(Context.WIFI_SERVICE);
@@ -168,8 +177,10 @@ public class GameStartingTable extends AppCompatActivity {
                 Log.e("Server", "Move on with undesirable players");
                 x = this.getClass();
         }
+
         Intent i = new Intent(this, x);
         i.putExtra("Participants", participants.toString());
+        i.putExtra("GAME", gameClass);
         startActivity(i);
     }
 

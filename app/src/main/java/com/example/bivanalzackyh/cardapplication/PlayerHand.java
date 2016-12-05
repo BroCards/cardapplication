@@ -20,6 +20,8 @@ public class PlayerHand extends AppCompatActivity {
     private RecyclerView mplayer_card;
     private RecyclerView.LayoutManager mLayoutManager;
 
+
+
     private static final Map<Integer,Integer> assoc_card = new Hashtable<Integer, Integer>() {{
         put(0, R.drawable.clubs_2); put(1, R.drawable.clubs_3); put(2, R.drawable.clubs_4); put(3, R.drawable.clubs_5);
         put(4, R.drawable.clubs_6); put(5, R.drawable.clubs_7); put(6, R.drawable.clubs_8); put(7, R.drawable.clubs_9);
@@ -101,7 +103,23 @@ public class PlayerHand extends AppCompatActivity {
             // - get element from your dataset at this position
             // - replace the contents of the view with that element
             holder.card_im.setImageResource(cards_id[position]);
+            holder.card_im.setTag(R.id.activity_player_hand, position);
+            holder.card_im.setOnClickListener(ClickListener);
         }
+
+        private View.OnClickListener ClickListener = new View.OnClickListener(){
+            public void onClick(View v){
+                //for now it's just getting card disappear when being clicked
+                //should be updated later on
+                int position = (int) v.getTag(R.id.activity_player_hand);
+                mplayer_card.removeViewAt(position);
+                RecyclerView.Adapter adapter1 = mplayer_card.getAdapter();
+                adapter1.notifyItemRemoved(position);
+
+                //still something wrong in here
+                //anyway I will be back on this later on
+            }
+        };
 
         // Return the size of your dataset (invoked by the layout manager)
         @Override

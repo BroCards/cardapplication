@@ -1,6 +1,10 @@
 package BroCardsLogic;
 
 import java.lang.Math;
+import java.util.List;
+
+import BroCardsNetworks.Client;
+import BroCardsNetworks.TableRunner;
 
 /*
 call GameFileCangkul with number of players as sole argument
@@ -10,15 +14,16 @@ gamefile = new GameFileCangkul(2); // play with 2 players
 gamefile.gameCangkul();
 */
 
-class GameFileCangkul {
+public class Cangkul extends TableRunner {
     
     private BroCards b;
     private int numPlayers;
     
     // init
-    public GameFileCangkul(int numOfPlayers) {
-        numPlayers = numOfPlayers;
-        b = BroCards(numPlayers);
+    public Cangkul(List<Client> players) {
+        super(players);
+        numPlayers = clients.size();
+        b = new BroCards(numPlayers);
         for (int card = 0; card < 52; card++)
             b.insertCard(card, 0);
         b.shuffleDeck();
@@ -65,8 +70,9 @@ class GameFileCangkul {
     }
     
     // TODO: fix below this to use b object
-    
-    public void gameCangkul() {
+
+    @Override
+    public void run() {
         
         // first draw, 7 cards per player        
         for (int i = 0; i < 7; i++)

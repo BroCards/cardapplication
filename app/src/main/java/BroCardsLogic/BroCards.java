@@ -1,6 +1,13 @@
 package BroCardsLogic;
 
+import android.view.View;
+
+import com.example.bivanalzackyh.cardapplication.R;
+
+import org.json.JSONObject;
+
 import java.lang.Math;
+
 
 /*
 card number: rank + 13 * suit

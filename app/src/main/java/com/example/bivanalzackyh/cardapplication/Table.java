@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.TableRow;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -21,6 +22,7 @@ import java.util.Locale;
 import java.util.Objects;
 
 import BroCardsNetworks.Client;
+import BroCardsNetworks.TableRunner;
 
 /**
  * Table Class
@@ -65,8 +67,7 @@ class Table extends AppCompatActivity {
                     .newInstance(clients);
 
             // start
-            Method start = game.getMethod("run", Void.class);
-            start.invoke(gameObj);
+            new Thread((TableRunner) gameObj).start();
 
         } catch (JSONException e) {
             e.printStackTrace();

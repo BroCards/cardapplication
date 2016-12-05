@@ -15,7 +15,7 @@ public abstract class TableRunner implements Runnable {
 
     protected List<Client> clients;
 
-    TableRunner(List<Client> participants) {
+    public TableRunner(List<Client> participants) {
         // DANGER: the object is not actually copied
 
         clients = participants;
@@ -42,7 +42,7 @@ public abstract class TableRunner implements Runnable {
             public void run() {
                 communicate(playerNum, msg, false);
             }
-        }).run();
+        }).start();
     }
 
     protected JSONObject tellPlayer(int playerNum, JSONObject msg) {

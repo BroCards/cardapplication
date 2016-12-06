@@ -135,7 +135,7 @@ public class Cangkul extends TableRunner {
                     winner = i;
                 }
             }
-            startingPlayer = winner;
+            startPlayer = winner;
             
             // if current player has no played card, that means the trick ends prematurely; penalize current player
             // otherwise, all can play, discard the cards

@@ -1,5 +1,6 @@
 package com.example.bivanalzackyh.cardapplication;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,19 +10,40 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Map;
+import java.util.concurrent.Semaphore;
+
+import BroCardsNetworks.ReplyRoutine;
+import BroCardsNetworks.Server;
 
 public class PlayerHand extends AppCompatActivity {
 
+    // adapter and card area
     private RecyclerView mplayer_card;
     private RecyclerView.LayoutManager mLayoutManager;
-    private ArrayList<Integer> games;
+    private ArrayList<Integer> holdingCard;
+    private ArrayList<Integer> drawableID;
     private RecyclerView.Adapter adapter;
 
+    // server stuffs
+    private Server listenServer;
 
+    private Semaphore clickable;
+    private Semaphore cardSelected;
+    private int selectedCard;
+    private boolean win;
+
+    // layout
+    TextView playerScore;
+    TextView playerName;
 
     private static final Map<Integer,Integer> assoc_card = new Hashtable<Integer, Integer>() {{
         put(0, R.drawable.clubs_2); put(1, R.drawable.clubs_3); put(2, R.drawable.clubs_4); put(3, R.drawable.clubs_5);
@@ -45,9 +67,30 @@ public class PlayerHand extends AppCompatActivity {
         put(51, R.drawable.spades_a);
     }};
 
+    private void addCard(int cardNo) {
+        holdingCard.add(cardNo);
+        drawableID.add(assoc_card.get(cardNo));
+        adapter.notifyItemInserted(holdingCard.size() - 1);
+        adapter.notifyDataSetChanged();
+    }
+
+    private void removeCard(int position) {
+        holdingCard.remove(position);
+        drawableID.remove(position);
+
+//        mplayer_card.removeViewAt(position);
+        adapter.notifyItemRemoved(position);
+        adapter.notifyItemRangeChanged(position, holdingCard.size());
+        adapter.notifyDataSetChanged();
+    }
+
+    private void makeToast(String s) {
+        Toast.makeText(this, s, Toast.LENGTH_LONG).show();
+    }
+
     @Override
     //please take a look at the function onCreate and MyAdapter
-    //there is a kind of translation between the array games and array drawableID
+    //there is a kind of translation between the array holdingCard and array drawableID
     //I have provided the translation in the assoc_card function
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,34 +101,58 @@ public class PlayerHand extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         mplayer_card.setLayoutManager(mLayoutManager);
 
-        games = new ArrayList<>();
-        games.add(0);
-        games.add(40);
-        games.add(2);
-        games.add(3);
-        games.add(28);
-        games.add(10);
-        adapter = new MyAdapter(games);
-        mplayer_card.setAdapter(adapter);
-        games.add(6);
-        games.add(7);
-        adapter = new MyAdapter(games);
-        mplayer_card.setAdapter(adapter);
+        playerScore = (TextView) findViewById(R.id.playerScore);
+        playerName = (TextView) findViewById(R.id.playerHandName);
+
+        // semaphores
+        clickable = new Semaphore(0);
+        cardSelected = new Semaphore(0);
+
+        holdingCard = new ArrayList<>();
+        adapter = new MyAdapter();
+
+        // start server
+        Thread serverThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                listenServer = new Server(8888);
+
+                if (!listenServer.isRunning()) {
+                    // Server not running
+                    Log.e("Listen server", "not running");
+                }
+
+                while (listenServer.isRunning()) {
+                    JSONObject inquiry = listenServer.listen(new playerReply());
+                }
+
+                Class dest;
+
+                // game ended
+                if (win) {
+                    dest = CongratulateWinning.class;
+                } else {
+                    dest = PoorLosing.class;
+                }
+
+                Intent i = new Intent(getApplicationContext(), dest);
+                startActivity(i);
+            }
+        });
+
+        serverThread.start();
     }
 
     public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-        private ArrayList<Integer> holdingCard;
-        private ArrayList<Integer> drawableID;
-
 
         // Provide a reference to the views for each data item
         // Complex data items may need more than one view per item, and
         // you provide access to all the views for a data item in a view holder
-        public class ViewHolder extends RecyclerView.ViewHolder {
+        class ViewHolder extends RecyclerView.ViewHolder {
             // each data item is just a string in this case
-            public ImageView card_im;
+            ImageView card_im;
 
-            public ViewHolder(View v) {
+            ViewHolder(View v) {
                 super(v);
                 ImageView mcard_im =(ImageView) v.findViewById(R.id.card_im);
                 card_im = mcard_im;
@@ -93,8 +160,7 @@ public class PlayerHand extends AppCompatActivity {
         }
 
         // Provide a suitable constructor (depends on the kind of dataset)
-        MyAdapter(ArrayList<Integer> myDataset) {
-            holdingCard = myDataset;
+        MyAdapter() {
             drawableID = new ArrayList<Integer>();
             for(int i : holdingCard) {
                 drawableID.add(assoc_card.get(i));
@@ -125,19 +191,18 @@ public class PlayerHand extends AppCompatActivity {
 
         private View.OnClickListener ClickListener = new View.OnClickListener(){
             public void onClick(View v){
-                //for now it's just getting card disappear when being clicked
-                //should be updated later on
-                int position = (int) v.getTag(R.id.activity_player_hand);
-                Log.d("position", String.valueOf(position));
-                holdingCard.remove(position);
-                drawableID.remove(position);
-                Log.d("Remaining holding cards", holdingCard.toString());
-                mplayer_card.removeViewAt(position);
-                adapter.notifyItemRemoved(position);
-                adapter.notifyItemRangeChanged(position, holdingCard.size());
-                adapter.notifyDataSetChanged();
-                //still something wrong in here
-                //anyway I will be back on this later on
+                // on click function has to not remove card anymore...
+                // try down the semaphore... seems familiar
+                if (clickable.tryAcquire()) {
+                    //for now it's just getting card disappear when being clicked
+                    //should be updated later on
+                    selectedCard = (int) v.getTag(R.id.activity_player_hand);
+
+                    //still something wrong in here
+                    //anyway I will be back on this later on
+                    // card removed
+                    cardSelected.release();
+                }
             }
         };
 
@@ -147,4 +212,83 @@ public class PlayerHand extends AppCompatActivity {
             return holdingCard.size();
         }
     }
+
+    class playerReply implements ReplyRoutine {
+        @Override
+        public JSONObject processInquiry(final JSONObject json) {
+            // check if need reply
+            try {
+                boolean needReply = json.getBoolean("requestResponse");
+
+                String type = json.getString("type");
+
+                Log.d("Incoming Json", json.toString());
+
+                int card = 0;
+                if (json.has("card"))
+                    card = json.getInt("card");
+
+                switch (type) {
+                    case "insert":
+                        // update the deck
+                        final int cardNo = card;
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                addCard(cardNo);
+                            }
+                        });
+                        break;
+                    case "remove":
+                        final int cardNo2 = holdingCard.indexOf(json.getInt("score"));
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                removeCard(cardNo2);
+                            }
+                        });
+                        break;
+                    case "request":
+                        // do this is no longer to remove card
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                makeToast("Your Turn! Select card to move");
+                                clickable.release();
+                            }
+                        });
+                        cardSelected.acquire();
+
+                        // selectedCard is now store INDEX of card which is selected
+                        JSONObject reply = new JSONObject();
+                        reply.put("card", selectedCard);
+
+                        return reply;
+                    case "score":
+                        final int score = json.getInt("score");
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                playerScore.setText(String.valueOf(score));
+                            }
+                        });
+                        break;
+                    case "end":
+                        // game end
+                        win = json.getBoolean("win");
+                        // don't know if it has problem but hey... we are leaving
+                        listenServer.exit();
+                        break;
+                    default:
+                        Log.e("Player hand", "invalid type request");
+                }
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
     }
+}

@@ -1,8 +1,11 @@
 package BroCardsLogic;
 
 import android.view.View;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 
 import com.example.bivanalzackyh.cardapplication.R;
+import BroCardsNetworks.TableRunner;
 
 import org.json.JSONObject;
 

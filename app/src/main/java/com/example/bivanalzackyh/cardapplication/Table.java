@@ -67,8 +67,8 @@ class Table extends AppCompatActivity {
                     .newInstance(clients);
 
             // start
-            new Thread((TableRunner) gameObj).start();
-
+            Thread t = new Thread((TableRunner) gameObj);
+            t.start();
         } catch (JSONException e) {
             e.printStackTrace();
             Toast.makeText(this, "Something wrong with JSON", Toast.LENGTH_LONG).show();
@@ -93,7 +93,8 @@ class Table extends AppCompatActivity {
             class Blackjacks extends TableRunner {
                 ...
 
-                public BlackJacks(int numParticipants, Activity activity) {
+                public BlackJacks(List<Client> participants, ...) {
+                    super(participants);
                     ... [initialize] ...
                 }
 
@@ -109,10 +110,6 @@ class Table extends AppCompatActivity {
 
                 }
             }
-
-        and in the game activity onCreate() method
-
-            Thread gameThread = new Thread(new Blackjacks(totalParticipants));
          */
     }
 

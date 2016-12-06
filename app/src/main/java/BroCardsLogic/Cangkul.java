@@ -63,9 +63,10 @@ public class Cangkul extends TableRunner {
     
     @Override
     public void run() {
-        
+        int i;
+
         // first draw, 7 cards per player        
-        for (int i = 0; i < 7; i++)
+        for (i = 0; i < 7; i++)
             for (int p = 0; p < numPlayers; p++)
                 drawCard(p);
         

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bivanalzackyh.cardapplication.R;
+import com.example.bivanalzackyh.cardapplication.Table2Player;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -238,12 +239,12 @@ public abstract class TableRunner implements Runnable {
 
         // not sure
         private void setImage(int area, int card) {
-            View location = findViewById(getAreaViewId(area));
-            if (card == -1) {
-                location.setBackground(null);
-                location.setBackgroundColor(0xffffffff); // white???
-            } else {
-                location.setBackground(getDrawable(getCardImageId(card)));
+            int areaId = getAreaViewId(area);
+            int cardId = getCardImageId(card);
+            switch (numPlayers) {
+                case 2:
+                    setImage2P(areaId, cardId);
+                    // i want to call setImage2P in cardapplication/Table2Player.java, how
             }
         }
 

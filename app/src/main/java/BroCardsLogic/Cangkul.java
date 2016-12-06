@@ -110,9 +110,11 @@ public class Cangkul extends TableRunner {
                 if ((b.getDeckLen() == 0) && (!foundPlayableCard)) break;
                 
                 // if there's playable card, ask to play a card (trick not ended yet)
+                boolean retry = false;
                 if (foundPlayableCard) {
                     do {
-                        selectedCard = b.requestMove(currPlayer);
+                        selectedCard = b.requestMove(currPlayer, retry);
+                        retry = true;
                     } while (!matchSuit(selectedCard, leadSuit));
                     playCard(selectedCard, currPlayer);
                 }

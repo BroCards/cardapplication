@@ -345,7 +345,7 @@ public abstract class TableRunner implements Runnable {
             }
         }
 
-        public int requestMove(int player) {
+        public int requestMove(int player, boolean retry) {
             // request move from player
             // 1. find the player
             // 2. prompt for a move
@@ -356,6 +356,7 @@ public abstract class TableRunner implements Runnable {
                 JSONObject msg = new JSONObject();
                 msg.put("requestResponse", true);
                 msg.put("type", "request");
+                msg.put("retried", retry);
                 JSONObject resp = tellPlayer(player, msg);
                 return resp.getInt("card");
             } catch (JSONException e) {

@@ -6,14 +6,6 @@ import java.util.List;
 import BroCardsNetworks.Client;
 import BroCardsNetworks.TableRunner;
 
-/*
-call GameFileCangkul with number of players as sole argument
-then call the method gameCangkul() to actually start the game
-e.g.
-gamefile = new GameFileCangkul(2); // play with 2 players
-gamefile.gameCangkul();
-*/
-
 public class Cangkul extends TableRunner {
     
     private BroCards b;
@@ -38,7 +30,7 @@ public class Cangkul extends TableRunner {
     
     // draw a card from deck to hand of player
     private int drawCard(int player) {
-        int drawnCard = b.getDeck()[deckLen-1];
+        int drawnCard = b.getDeck()[b.getDeckLen()-1];
         b.removeCard(drawnCard, 0);
         b.insertCard(drawnCard, 10+player);
         return drawnCard;
@@ -69,15 +61,13 @@ public class Cangkul extends TableRunner {
         }
     }
     
-    // TODO: fix below this to use b object
-
     @Override
     public void run() {
         
         // first draw, 7 cards per player        
         for (int i = 0; i < 7; i++)
-            for (int j = 0; j < numPlayers; j++)
-                drawCard(j);
+            for (int p = 0; p < numPlayers; p++)
+                drawCard(p);
         
         int startPlayer = 0;
         int currPlayer = 0;
@@ -97,8 +87,8 @@ public class Cangkul extends TableRunner {
                 
                 // find card of playable suit
                 foundPlayableCard = false;
-                for (int j = 0; j < handLen[currPlayer]; j++) {
-                    if (matchSuit(hand[currPlayer][j], leadSuit)) {
+                for (int j = 0; j < b.getHandLen()[currPlayer]; j++) {
+                    if (matchSuit(b.getHand()[currPlayer][j], leadSuit)) {
                         foundPlayableCard = true;
                         break;
                     }
@@ -106,7 +96,7 @@ public class Cangkul extends TableRunner {
                 
                 // if no playable card, draw until there's one
                 if (!foundPlayableCard) {
-                    while (deckLen > 0) {
+                    while (b.getDeckLen() > 0) {
                         int drawnCard = drawCard(currPlayer);
                         if (matchSuit(drawnCard, leadSuit)) {
                             foundPlayableCard = true;
@@ -116,12 +106,12 @@ public class Cangkul extends TableRunner {
                 }
                 
                 // if deck runs out with no playable card, trick ends
-                if ((deckLen == 0) && (!foundPlayableCard)) break;
+                if ((b.getDeckLen() == 0) && (!foundPlayableCard)) break;
                 
                 // if there's playable card, ask to play a card (trick not ended yet)
                 if (foundPlayableCard) {
                     do {
-                        selectedCard = requestMove(currPlayer);
+                        selectedCard = b.requestMove(currPlayer);
                     } while (!matchSuit(selectedCard, leadSuit));
                     playCard(selectedCard, currPlayer);
                 }
@@ -131,7 +121,7 @@ public class Cangkul extends TableRunner {
                     leadSuit = selectedCard / 13;
                 
                 // if run out of cards, end game
-                if (handLen[currPlayer] == 0)
+                if (b.getHandLen()[currPlayer] == 0)
                     break mainLoop;
             }
             
@@ -139,8 +129,8 @@ public class Cangkul extends TableRunner {
             int winner = -1;
             int winningCard = -1;
             for (i = 0; i < numPlayers; i++) {
-                if (winningCard < played[i]) {
-                    winningCard = played[i];
+                if (winningCard < b.getPlayed()[i]) {
+                    winningCard = b.getPlayed()[i];
                     winner = i;
                 }
             }
@@ -148,14 +138,15 @@ public class Cangkul extends TableRunner {
             
             // if current player has no played card, that means the trick ends prematurely; penalize current player
             // otherwise, all can play, discard the cards
-            if (played[currPlayer] == -1)
+            if (b.getPlayed()[currPlayer] == -1)
                 penalizePlayer(currPlayer);
             else
                 discardPlays();
         }
         
         // end game; current player must be the one that runs out of cards, they win
-        endGame(currPlayer);
+        b.updateScore(currPlayer, 1);
+        b.endGame();
         
     }
     

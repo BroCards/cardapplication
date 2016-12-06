@@ -73,32 +73,6 @@ class BroCards {
         return array;
     }
 
-	private JSONObject talkToPlayer(int player, JSONObject message) {
-        /* keys:
-        type: string, what type of request it is:
-            insert: insert a card to player's hand
-            remove: remove a card from player's hand
-            request: request a move from player
-            score: update player's score
-            end: end the game
-        requestResponse: boolean, whether we need response from player; true if type "response", false otherwise
-        card: int, card number, used for type "insert"/"remove"
-        score: int, score to be updated to, used for type "score"
-        win: boolean, whether the player wins or not, used for type "end"
-
-        if requestResponse is false, return null (it won't be read)
-        otherwise, return a JSONObject with following keys:
-            type: "response"
-            requestResponse: "false"
-            card: int, card number selected
-        or if you want to change it, tell me
-
-        see top of code for explanation of card numbers
-        */
-
-		// TODO
-	}
-
     public BroCards(int numOfPlayers) {
         numPlayers = numOfPlayers;
         deck = new int[52];
@@ -141,23 +115,146 @@ class BroCards {
         return null;
     }
 
+    // not sure
+    private Drawable getCardImage(int card) {
+        switch (card) {
+            case 0:
+                return getDrawable(R.drawable.clubs_2);
+            case 1:
+                return getDrawable(R.drawable.clubs_3);
+            case 2:
+                return getDrawable(R.drawable.clubs_4);
+            case 3:
+                return getDrawable(R.drawable.clubs_5);
+            case 4:
+                return getDrawable(R.drawable.clubs_6);
+            case 5:
+                return getDrawable(R.drawable.clubs_7);
+            case 6:
+                return getDrawable(R.drawable.clubs_8);
+            case 7:
+                return getDrawable(R.drawable.clubs_9);
+            case 8:
+                return getDrawable(R.drawable.clubs_10);
+            case 9:
+                return getDrawable(R.drawable.clubs_J);
+            case 10:
+                return getDrawable(R.drawable.clubs_Q);
+            case 11:
+                return getDrawable(R.drawable.clubs_K);
+            case 12:
+                return getDrawable(R.drawable.clubs_A);
+            case 13:
+                return getDrawable(R.drawable.diamonds_2);
+            case 14:
+                return getDrawable(R.drawable.diamonds_3);
+            case 15:
+                return getDrawable(R.drawable.diamonds_4);
+            case 16:
+                return getDrawable(R.drawable.diamonds_5);
+            case 17:
+                return getDrawable(R.drawable.diamonds_6);
+            case 18:
+                return getDrawable(R.drawable.diamonds_7);
+            case 19:
+                return getDrawable(R.drawable.diamonds_8);
+            case 20:
+                return getDrawable(R.drawable.diamonds_9);
+            case 21:
+                return getDrawable(R.drawable.diamonds_10);
+            case 22:
+                return getDrawable(R.drawable.diamonds_J);
+            case 23:
+                return getDrawable(R.drawable.diamonds_Q);
+            case 24:
+                return getDrawable(R.drawable.diamonds_K);
+            case 25:
+                return getDrawable(R.drawable.diamonds_A);
+            case 26:
+                return getDrawable(R.drawable.hearts_2);
+            case 27:
+                return getDrawable(R.drawable.hearts_3);
+            case 28:
+                return getDrawable(R.drawable.hearts_4);
+            case 29:
+                return getDrawable(R.drawable.hearts_5);
+            case 30:
+                return getDrawable(R.drawable.hearts_6);
+            case 31:
+                return getDrawable(R.drawable.hearts_7);
+            case 32:
+                return getDrawable(R.drawable.hearts_8);
+            case 33:
+                return getDrawable(R.drawable.hearts_9);
+            case 34:
+                return getDrawable(R.drawable.hearts_10);
+            case 35:
+                return getDrawable(R.drawable.hearts_J);
+            case 36:
+                return getDrawable(R.drawable.hearts_Q);
+            case 37:
+                return getDrawable(R.drawable.hearts_K);
+            case 38:
+                return getDrawable(R.drawable.hearts_A);
+            case 39:
+                return getDrawable(R.drawable.spades_2);
+            case 40:
+                return getDrawable(R.drawable.spades_3);
+            case 41:
+                return getDrawable(R.drawable.spades_4);
+            case 42:
+                return getDrawable(R.drawable.spades_5);
+            case 43:
+                return getDrawable(R.drawable.spades_6);
+            case 44:
+                return getDrawable(R.drawable.spades_7);
+            case 45:
+                return getDrawable(R.drawable.spades_8);
+            case 46:
+                return getDrawable(R.drawable.spades_9);
+            case 47:
+                return getDrawable(R.drawable.spades_10);
+            case 48:
+                return getDrawable(R.drawable.spades_J);
+            case 49:
+                return getDrawable(R.drawable.spades_Q);
+            case 50:
+                return getDrawable(R.drawable.spades_K);
+            case 51:
+                return getDrawable(R.drawable.spades_A);
+            case 100:
+                return getDrawable(R.drawable.cardback);
+        }
+    }
+    
+    // not sure
+    private void setImage(int area, int card) {
+        View location = viewOfArea(area);
+        if (card == -1) {
+            location.setBackground(null);
+            location.setBackgroundColor(0xffffffff); // white???
+        } else {
+            location.setBackground(getCardImage(card));
+        }
+    }
+     
     public void insertCard(int card, int area) {
         // add card to area
         // 1. find the area
         // 2. append the card to area
-
+        
         switch (area) {
             case 0:
                 // case for deck
                 deck[deckLen] = card;
                 deckLen++;
-                // viewOfArea(area).setBackground(<graphic for card back>);
+                setImage(0, 100);
                 break;
             case 1:
                 // case for discard
                 discard[discardLen] = card;
                 discardLen++;
-                // viewOfArea(area).setBackground(<graphic for card>);
+                setImage(1, card);
                 break;
             case 10: case 11: case 12: case 13:
                 // case for hand
@@ -168,33 +265,33 @@ class BroCards {
                 msg.put("requestResponse", false);
                 msg.put("type", "insert");
                 msg.put("card", card);
-                talkToPlayer(p, msg);
+                tellPlayer(p, msg);
                 break;
             case 20: case 21: case 22: case 23:
                 // case for play area
                 int p = area - 20;
                 played[p] = card;
-                // viewOfArea(area).setBackground(<graphic for card>);
+                setImage(area, card);
                 break;
         }
     }
-
+    
     public void removeCard(int card, int area) {
         // remove card from area
         // 1. find the area
         // 2. find the card from area
         // 3. remove it
         // 4. consolidate the rest into a contiguous array
-
+        
         switch (area) {
             case 0:
                 // case for deck
                 deck = removeFromArray(card, deck, deckLen);
                 deckLen--;
                 if (deckLen == 0) {
-                    // viewOfArea(area).setBackground(<graphic for empty>);
+                    setImage(0, -1);
                 } else {
-                    // viewOfArea(area).setBackground(<graphic for card back>);
+                    setImage(0, 100);
                 }
                 break;
             case 1:
@@ -202,10 +299,10 @@ class BroCards {
                 discard = removeFromArray(card, discard, discardLen);
                 discardLen--;
                 if (discardLen == 0) {
-                    // viewOfArea(area).setBackground(<graphic for empty>);
+                    setImage(1, -1);
                 } else {
                     int lastCard = discard[discardLen-1];
-                    // viewOfArea(area).setBackground(<graphic for lastCard>);
+                    setImage(1, lastCard);
                 }
                 break;
             case 10: case 11: case 12: case 13:
@@ -217,54 +314,54 @@ class BroCards {
                 msg.put("requestResponse", false);
                 msg.put("type", "remove");
                 msg.put("card", card);
-                talkToPlayer(p, msg);
+                tellPlayer(p, msg);
                 break;
             case 20: case 21: case 22: case 23:
                 // case for play
                 int p = area - 20;
                 played[p] = -1;
-                // viewOfArea(area).setBackground(<graphic for empty>);
+                setImage(area, -1);
                 break;
         }
     }
-
+    
     public int requestMove(int player) {
         // request move from player
         // 1. find the player
         // 2. prompt for a move
         // 3. record the selection
         // 4. return to table
-
+        
         JSONObject msg = new JSONObject();
         msg.put("requestResponse", true);
         msg.put("type", "request");
-        JSONObject resp = talkToPlayer(player, msg);
+        JSONObject resp = tellPlayer(player, msg);
         return resp.getInt("card");
     }
-
+    
     public void updateScore(int player, int score) {
         // update score of player
         // 1. find the player
         // 2. find the score display
         // 3. update to the score
-
+        
         JSONObject msg = new JSONObject();
         msg.put("requestResponse", false);
         msg.put("type", "score");
         msg.put("score", score);
-        talkToPlayer(player, msg);
+        tellPlayer(player, msg);
     }
-
+    
     public void endGame() {
         // end game; must be called before quitting the game
         // 1. compute winner(s) (based on score)
         // 2. broadcast whether they win or not to everyone
-
+        
         int maxscore = score[0];
         boolean[] isWinner = new boolean[numPlayers];
         for (int p = 0; p < numPlayers; p++) isWinner[p] = false;
         isWinner[0] = true;
-
+        
         for (int i = 1; i < numPlayers; i++) {
             if (score[i] > maxscore) {
                 maxscore = score[i];
@@ -274,20 +371,20 @@ class BroCards {
                 isWinner[i] = true;
             }
         }
-
+        
         for (int p = 0; p < numPlayers; p++) {
             JSONObject msg = new JSONObject();
             msg.put("requestResponse", false);
             msg.put("type", "end");
             msg.put("win", isWinner[p]);
-            talkToPlayer(p, msg);
+            tellPlayer(p, msg);
         }
     }
-
+    
     public void shuffleDeck() {
         // shuffle the deck
         // Fisher-Yates algorithm
-
+        
         for (int i = deckLen - 1; i > 0; i--) {
             int j = (Math.random() * (i+1));
             int temp = deck[j];
@@ -295,5 +392,5 @@ class BroCards {
             deck[i] = temp;
         }
     }
-
+    
 }

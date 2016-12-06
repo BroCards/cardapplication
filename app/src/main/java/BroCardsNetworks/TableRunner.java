@@ -3,6 +3,17 @@ package BroCardsNetworks;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.bivanalzackyh.cardapplication.R;
 
@@ -117,7 +128,6 @@ public abstract class TableRunner implements Runnable {
         private int[] removeFromArray(int elem, int[] array, int arrayLen) {
             for (int i = 0; i < arrayLen; i++) {
                 if (array[i] == elem) {
-                    pos = i;
                     array[i] = -1;
                     break;
                 }
@@ -159,12 +169,12 @@ public abstract class TableRunner implements Runnable {
             switch (area) {
                 case 0: return R.id.viewDeck;
                 case 1: return R.id.viewDiscard;
-                case 20: return R.id.viewPlay0;
-                case 21: return R.id.viewPlay1;
-                case 22: return R.id.viewPlay2;
-                case 23: return R.id.viewPlay3;
+                case 20: return R.id.viewPlay1;
+                case 21: return R.id.viewPlay2;
+                case 22: return R.id.viewPlay3;
+                case 23: return R.id.viewPlay4;
             }
-            return null;
+            return 0;
         }
 
         private int getCardImageId(int card) {
@@ -223,6 +233,7 @@ public abstract class TableRunner implements Runnable {
                 case 51: return R.drawable.spades_a;
                 case 100: return R.drawable.cardback;
             }
+            return 0;
         }
 
         // not sure
@@ -241,6 +252,7 @@ public abstract class TableRunner implements Runnable {
             // 1. find the area
             // 2. append the card to area
 
+            int p;
             switch (area) {
                 case 0:
                     // case for deck
@@ -256,18 +268,22 @@ public abstract class TableRunner implements Runnable {
                     break;
                 case 10: case 11: case 12: case 13:
                     // case for hand
-                    int p = area - 10;
+                    p = area - 10;
                     hand[p][handLen[p]] = card;
                     handLen[p]++;
-                    JSONObject msg = new JSONObject();
-                    msg.put("requestResponse", false);
-                    msg.put("type", "insert");
-                    msg.put("card", card);
-                    tellPlayer(p, msg);
+                    try {
+                        JSONObject msg = new JSONObject();
+                        msg.put("requestResponse", false);
+                        msg.put("type", "insert");
+                        msg.put("card", card);
+                        tellPlayer(p, msg);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
                 case 20: case 21: case 22: case 23:
                     // case for play area
-                    int p = area - 20;
+                    p = area - 20;
                     played[p] = card;
                     setImage(area, card);
                     break;
@@ -281,6 +297,7 @@ public abstract class TableRunner implements Runnable {
             // 3. remove it
             // 4. consolidate the rest into a contiguous array
 
+            int p;
             switch (area) {
                 case 0:
                     // case for deck
@@ -305,18 +322,22 @@ public abstract class TableRunner implements Runnable {
                     break;
                 case 10: case 11: case 12: case 13:
                     // case for hand
-                    int p = area - 10;
+                    p = area - 10;
                     hand[p] = removeFromArray(card, hand[p], handLen[p]);
                     handLen[p]--;
-                    JSONObject msg = new JSONObject();
-                    msg.put("requestResponse", false);
-                    msg.put("type", "remove");
-                    msg.put("card", card);
-                    tellPlayer(p, msg);
+                    try {
+                        JSONObject msg = new JSONObject();
+                        msg.put("requestResponse", false);
+                        msg.put("type", "remove");
+                        msg.put("card", card);
+                        tellPlayer(p, msg);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
                 case 20: case 21: case 22: case 23:
                     // case for play
-                    int p = area - 20;
+                    p = area - 20;
                     played[p] = -1;
                     setImage(area, -1);
                     break;
@@ -330,11 +351,15 @@ public abstract class TableRunner implements Runnable {
             // 3. record the selection
             // 4. return to table
 
-            JSONObject msg = new JSONObject();
-            msg.put("requestResponse", true);
-            msg.put("type", "request");
-            JSONObject resp = tellPlayer(player, msg);
-            return resp.getInt("card");
+            try {
+                JSONObject msg = new JSONObject();
+                msg.put("requestResponse", true);
+                msg.put("type", "request");
+                JSONObject resp = tellPlayer(player, msg);
+                return resp.getInt("card");
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         public void updateScore(int player, int score) {
@@ -343,11 +368,15 @@ public abstract class TableRunner implements Runnable {
             // 2. find the score display
             // 3. update to the score
 
-            JSONObject msg = new JSONObject();
-            msg.put("requestResponse", false);
-            msg.put("type", "score");
-            msg.put("score", score);
-            tellPlayer(player, msg);
+            try {
+                JSONObject msg = new JSONObject();
+                msg.put("requestResponse", false);
+                msg.put("type", "score");
+                msg.put("score", score);
+                tellPlayer(player, msg);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         public void endGame() {
@@ -371,11 +400,15 @@ public abstract class TableRunner implements Runnable {
             }
 
             for (int p = 0; p < numPlayers; p++) {
-                JSONObject msg = new JSONObject();
-                msg.put("requestResponse", false);
-                msg.put("type", "end");
-                msg.put("win", isWinner[p]);
-                tellPlayer(p, msg);
+                try {
+                    JSONObject msg = new JSONObject();
+                    msg.put("requestResponse", false);
+                    msg.put("type", "end");
+                    msg.put("win", isWinner[p]);
+                    tellPlayer(p, msg);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
 
@@ -384,7 +417,7 @@ public abstract class TableRunner implements Runnable {
             // Fisher-Yates algorithm
 
             for (int i = deckLen - 1; i > 0; i--) {
-                int j = (Math.random() * (i+1));
+                int j = (int) (Math.random() * (i+1));
                 int temp = deck[j];
                 deck[j] = deck[i];
                 deck[i] = temp;

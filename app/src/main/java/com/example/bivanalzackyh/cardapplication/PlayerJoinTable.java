@@ -86,7 +86,7 @@ public class PlayerJoinTable extends AppCompatActivity {
     }
 
     void startPlaying(View v){
-        Intent i = new Intent(this, GameStartingPlayer.class);
+        Intent i = new Intent(this, PlayerHand.class);
         startActivity(i);
     }
 }

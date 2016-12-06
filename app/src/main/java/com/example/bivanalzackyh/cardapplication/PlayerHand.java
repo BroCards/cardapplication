@@ -4,15 +4,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 
@@ -49,7 +47,7 @@ public class PlayerHand extends AppCompatActivity {
 
     @Override
     //please take a look at the function onCreate and MyAdapter
-    //there is a kind of translation between the array games and array cards_id
+    //there is a kind of translation between the array games and array drawableID
     //I have provided the translation in the assoc_card function
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,16 +60,23 @@ public class PlayerHand extends AppCompatActivity {
 
         games = new ArrayList<>();
         games.add(0);
-        games.add(1);
+        games.add(40);
         games.add(2);
         games.add(3);
+        games.add(28);
+        games.add(10);
+        adapter = new MyAdapter(games);
+        mplayer_card.setAdapter(adapter);
+        games.add(6);
+        games.add(7);
         adapter = new MyAdapter(games);
         mplayer_card.setAdapter(adapter);
     }
 
     public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-        private ArrayList<Integer> mDataset;
-        private int[] cards_id = {assoc_card.get(0), assoc_card.get(1), assoc_card.get(2), assoc_card.get(3)};
+        private ArrayList<Integer> holdingCard;
+        private ArrayList<Integer> drawableID;
+
 
         // Provide a reference to the views for each data item
         // Complex data items may need more than one view per item, and
@@ -88,8 +93,12 @@ public class PlayerHand extends AppCompatActivity {
         }
 
         // Provide a suitable constructor (depends on the kind of dataset)
-        public MyAdapter(ArrayList<Integer> myDataset) {
-            mDataset = myDataset;
+        MyAdapter(ArrayList<Integer> myDataset) {
+            holdingCard = myDataset;
+            drawableID = new ArrayList<Integer>();
+            for(int i : holdingCard) {
+                drawableID.add(assoc_card.get(i));
+            }
         }
 
         // Create new views (invoked by the layout manager)
@@ -109,7 +118,7 @@ public class PlayerHand extends AppCompatActivity {
         public void onBindViewHolder(ViewHolder holder, int position) {
             // - get element from your dataset at this position
             // - replace the contents of the view with that element
-            holder.card_im.setImageResource(cards_id[mDataset.get(position)]);
+            holder.card_im.setImageResource(drawableID.get(position));
             holder.card_im.setTag(R.id.activity_player_hand, position);
             holder.card_im.setOnClickListener(ClickListener);
         }
@@ -119,10 +128,13 @@ public class PlayerHand extends AppCompatActivity {
                 //for now it's just getting card disappear when being clicked
                 //should be updated later on
                 int position = (int) v.getTag(R.id.activity_player_hand);
-                mDataset.remove(position);
+                Log.d("position", String.valueOf(position));
+                holdingCard.remove(position);
+                drawableID.remove(position);
+                Log.d("Remaining holding cards", holdingCard.toString());
                 mplayer_card.removeViewAt(position);
                 adapter.notifyItemRemoved(position);
-                adapter.notifyItemRangeChanged(position, mDataset.size());
+                adapter.notifyItemRangeChanged(position, holdingCard.size());
                 adapter.notifyDataSetChanged();
                 //still something wrong in here
                 //anyway I will be back on this later on
@@ -132,7 +144,7 @@ public class PlayerHand extends AppCompatActivity {
         // Return the size of your dataset (invoked by the layout manager)
         @Override
         public int getItemCount() {
-            return mDataset.size();
+            return holdingCard.size();
         }
     }
     }

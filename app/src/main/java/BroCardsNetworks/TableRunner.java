@@ -85,7 +85,7 @@ public abstract class TableRunner implements Runnable {
     - each move asks one player, asks for one card from hand
     */
 
-    class BroCards {
+    protected class BroCards {
 
         private int numPlayers;
         private int[] deck;
@@ -195,13 +195,13 @@ public abstract class TableRunner implements Runnable {
                 case 8:
                     return getDrawable(R.drawable.clubs_10);
                 case 9:
-                    return getDrawable(R.drawable.clubs_J);
+                    return getDrawable(R.drawable.clubs_j);
                 case 10:
-                    return getDrawable(R.drawable.clubs_Q);
+                    return getDrawable(R.drawable.clubs_q);
                 case 11:
-                    return getDrawable(R.drawable.clubs_K);
+                    return getDrawable(R.drawable.clubs_k);
                 case 12:
-                    return getDrawable(R.drawable.clubs_A);
+                    return getDrawable(R.drawable.clubs_a);
                 case 13:
                     return getDrawable(R.drawable.diamonds_2);
                 case 14:
@@ -221,13 +221,13 @@ public abstract class TableRunner implements Runnable {
                 case 21:
                     return getDrawable(R.drawable.diamonds_10);
                 case 22:
-                    return getDrawable(R.drawable.diamonds_J);
+                    return getDrawable(R.drawable.diamonds_j);
                 case 23:
-                    return getDrawable(R.drawable.diamonds_Q);
+                    return getDrawable(R.drawable.diamonds_q);
                 case 24:
-                    return getDrawable(R.drawable.diamonds_K);
+                    return getDrawable(R.drawable.diamonds_k);
                 case 25:
-                    return getDrawable(R.drawable.diamonds_A);
+                    return getDrawable(R.drawable.diamonds_a);
                 case 26:
                     return getDrawable(R.drawable.hearts_2);
                 case 27:
@@ -247,13 +247,13 @@ public abstract class TableRunner implements Runnable {
                 case 34:
                     return getDrawable(R.drawable.hearts_10);
                 case 35:
-                    return getDrawable(R.drawable.hearts_J);
+                    return getDrawable(R.drawable.hearts_j);
                 case 36:
-                    return getDrawable(R.drawable.hearts_Q);
+                    return getDrawable(R.drawable.hearts_q);
                 case 37:
-                    return getDrawable(R.drawable.hearts_K);
+                    return getDrawable(R.drawable.hearts_k);
                 case 38:
-                    return getDrawable(R.drawable.hearts_A);
+                    return getDrawable(R.drawable.hearts_a);
                 case 39:
                     return getDrawable(R.drawable.spades_2);
                 case 40:
@@ -273,13 +273,13 @@ public abstract class TableRunner implements Runnable {
                 case 47:
                     return getDrawable(R.drawable.spades_10);
                 case 48:
-                    return getDrawable(R.drawable.spades_J);
+                    return getDrawable(R.drawable.spades_j);
                 case 49:
-                    return getDrawable(R.drawable.spades_Q);
+                    return getDrawable(R.drawable.spades_q);
                 case 50:
-                    return getDrawable(R.drawable.spades_K);
+                    return getDrawable(R.drawable.spades_k);
                 case 51:
-                    return getDrawable(R.drawable.spades_A);
+                    return getDrawable(R.drawable.spades_a);
                 case 100:
                     return getDrawable(R.drawable.cardback);
             }

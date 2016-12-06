@@ -3,8 +3,20 @@ package BroCardsNetworks;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.bivanalzackyh.cardapplication.R;
+import com.example.bivanalzackyh.cardapplication.Table2Player;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -117,7 +129,6 @@ public abstract class TableRunner implements Runnable {
         private int[] removeFromArray(int elem, int[] array, int arrayLen) {
             for (int i = 0; i < arrayLen; i++) {
                 if (array[i] == elem) {
-                    pos = i;
                     array[i] = -1;
                     break;
                 }
@@ -155,144 +166,85 @@ public abstract class TableRunner implements Runnable {
             }
         }
 
-        private View viewOfArea(int area) {
+        private int getAreaViewId(int area) {
             switch (area) {
-                case 0:
-                    return findViewById(R.id.viewDeck);
-                case 1:
-                    return findViewById(R.id.viewDiscard);
-                case 20:
-                    return findViewById(R.id.viewPlay0);
-                case 21:
-                    return findViewById(R.id.viewPlay1);
-                case 22:
-                    return findViewById(R.id.viewPlay2);
-                case 23:
-                    return findViewById(R.id.viewPlay3);
+                case 0: return R.id.viewDeck;
+                case 1: return R.id.viewDiscard;
+                case 20: return R.id.viewPlay1;
+                case 21: return R.id.viewPlay2;
+                case 22: return R.id.viewPlay3;
+                case 23: return R.id.viewPlay4;
             }
-            return null;
+            return 0;
         }
 
-        // not sure
-        private Drawable getCardImage(int card) {
+        private int getCardImageId(int card) {
             switch (card) {
-                case 0:
-                    return getDrawable(R.drawable.clubs_2);
-                case 1:
-                    return getDrawable(R.drawable.clubs_3);
-                case 2:
-                    return getDrawable(R.drawable.clubs_4);
-                case 3:
-                    return getDrawable(R.drawable.clubs_5);
-                case 4:
-                    return getDrawable(R.drawable.clubs_6);
-                case 5:
-                    return getDrawable(R.drawable.clubs_7);
-                case 6:
-                    return getDrawable(R.drawable.clubs_8);
-                case 7:
-                    return getDrawable(R.drawable.clubs_9);
-                case 8:
-                    return getDrawable(R.drawable.clubs_10);
-                case 9:
-                    return getDrawable(R.drawable.clubs_j);
-                case 10:
-                    return getDrawable(R.drawable.clubs_q);
-                case 11:
-                    return getDrawable(R.drawable.clubs_k);
-                case 12:
-                    return getDrawable(R.drawable.clubs_a);
-                case 13:
-                    return getDrawable(R.drawable.diamonds_2);
-                case 14:
-                    return getDrawable(R.drawable.diamonds_3);
-                case 15:
-                    return getDrawable(R.drawable.diamonds_4);
-                case 16:
-                    return getDrawable(R.drawable.diamonds_5);
-                case 17:
-                    return getDrawable(R.drawable.diamonds_6);
-                case 18:
-                    return getDrawable(R.drawable.diamonds_7);
-                case 19:
-                    return getDrawable(R.drawable.diamonds_8);
-                case 20:
-                    return getDrawable(R.drawable.diamonds_9);
-                case 21:
-                    return getDrawable(R.drawable.diamonds_10);
-                case 22:
-                    return getDrawable(R.drawable.diamonds_j);
-                case 23:
-                    return getDrawable(R.drawable.diamonds_q);
-                case 24:
-                    return getDrawable(R.drawable.diamonds_k);
-                case 25:
-                    return getDrawable(R.drawable.diamonds_a);
-                case 26:
-                    return getDrawable(R.drawable.hearts_2);
-                case 27:
-                    return getDrawable(R.drawable.hearts_3);
-                case 28:
-                    return getDrawable(R.drawable.hearts_4);
-                case 29:
-                    return getDrawable(R.drawable.hearts_5);
-                case 30:
-                    return getDrawable(R.drawable.hearts_6);
-                case 31:
-                    return getDrawable(R.drawable.hearts_7);
-                case 32:
-                    return getDrawable(R.drawable.hearts_8);
-                case 33:
-                    return getDrawable(R.drawable.hearts_9);
-                case 34:
-                    return getDrawable(R.drawable.hearts_10);
-                case 35:
-                    return getDrawable(R.drawable.hearts_j);
-                case 36:
-                    return getDrawable(R.drawable.hearts_q);
-                case 37:
-                    return getDrawable(R.drawable.hearts_k);
-                case 38:
-                    return getDrawable(R.drawable.hearts_a);
-                case 39:
-                    return getDrawable(R.drawable.spades_2);
-                case 40:
-                    return getDrawable(R.drawable.spades_3);
-                case 41:
-                    return getDrawable(R.drawable.spades_4);
-                case 42:
-                    return getDrawable(R.drawable.spades_5);
-                case 43:
-                    return getDrawable(R.drawable.spades_6);
-                case 44:
-                    return getDrawable(R.drawable.spades_7);
-                case 45:
-                    return getDrawable(R.drawable.spades_8);
-                case 46:
-                    return getDrawable(R.drawable.spades_9);
-                case 47:
-                    return getDrawable(R.drawable.spades_10);
-                case 48:
-                    return getDrawable(R.drawable.spades_j);
-                case 49:
-                    return getDrawable(R.drawable.spades_q);
-                case 50:
-                    return getDrawable(R.drawable.spades_k);
-                case 51:
-                    return getDrawable(R.drawable.spades_a);
-                case 100:
-                    return getDrawable(R.drawable.cardback);
+                case 0: return R.drawable.clubs_2;
+                case 1: return R.drawable.clubs_3;
+                case 2: return R.drawable.clubs_4;
+                case 3: return R.drawable.clubs_5;
+                case 4: return R.drawable.clubs_6;
+                case 5: return R.drawable.clubs_7;
+                case 6: return R.drawable.clubs_8;
+                case 7: return R.drawable.clubs_9;
+                case 8: return R.drawable.clubs_10;
+                case 9: return R.drawable.clubs_j;
+                case 10: return R.drawable.clubs_q;
+                case 11: return R.drawable.clubs_k;
+                case 12: return R.drawable.clubs_a;
+                case 13: return R.drawable.diamonds_2;
+                case 14: return R.drawable.diamonds_3;
+                case 15: return R.drawable.diamonds_4;
+                case 16: return R.drawable.diamonds_5;
+                case 17: return R.drawable.diamonds_6;
+                case 18: return R.drawable.diamonds_7;
+                case 19: return R.drawable.diamonds_8;
+                case 20: return R.drawable.diamonds_9;
+                case 21: return R.drawable.diamonds_10;
+                case 22: return R.drawable.diamonds_j;
+                case 23: return R.drawable.diamonds_q;
+                case 24: return R.drawable.diamonds_k;
+                case 25: return R.drawable.diamonds_a;
+                case 26: return R.drawable.hearts_2;
+                case 27: return R.drawable.hearts_3;
+                case 28: return R.drawable.hearts_4;
+                case 29: return R.drawable.hearts_5;
+                case 30: return R.drawable.hearts_6;
+                case 31: return R.drawable.hearts_7;
+                case 32: return R.drawable.hearts_8;
+                case 33: return R.drawable.hearts_9;
+                case 34: return R.drawable.hearts_10;
+                case 35: return R.drawable.hearts_j;
+                case 36: return R.drawable.hearts_q;
+                case 37: return R.drawable.hearts_k;
+                case 38: return R.drawable.hearts_a;
+                case 39: return R.drawable.spades_2;
+                case 40: return R.drawable.spades_3;
+                case 41: return R.drawable.spades_4;
+                case 42: return R.drawable.spades_5;
+                case 43: return R.drawable.spades_6;
+                case 44: return R.drawable.spades_7;
+                case 45: return R.drawable.spades_8;
+                case 46: return R.drawable.spades_9;
+                case 47: return R.drawable.spades_10;
+                case 48: return R.drawable.spades_j;
+                case 49: return R.drawable.spades_q;
+                case 50: return R.drawable.spades_k;
+                case 51: return R.drawable.spades_a;
+                case 100: return R.drawable.cardback;
             }
+            return 0;
         }
 
         // not sure
         private void setImage(int area, int card) {
-            View location = viewOfArea(area);
-            if (card == -1) {
-                location.setBackground(null);
-                location.setBackgroundColor(0xffffffff); // white???
-            } else {
-                location.setBackground(getCardImage(card));
+            int areaId = getAreaViewId(area);
+            int cardId = getCardImageId(card);
+            switch (numPlayers) {
+                case 2:
+                    setImage2P(areaId, cardId);
+                    // i want to call setImage2P in cardapplication/Table2Player.java, how
             }
         }
 
@@ -301,6 +253,7 @@ public abstract class TableRunner implements Runnable {
             // 1. find the area
             // 2. append the card to area
 
+            int p;
             switch (area) {
                 case 0:
                     // case for deck
@@ -316,18 +269,22 @@ public abstract class TableRunner implements Runnable {
                     break;
                 case 10: case 11: case 12: case 13:
                     // case for hand
-                    int p = area - 10;
+                    p = area - 10;
                     hand[p][handLen[p]] = card;
                     handLen[p]++;
-                    JSONObject msg = new JSONObject();
-                    msg.put("requestResponse", false);
-                    msg.put("type", "insert");
-                    msg.put("card", card);
-                    tellPlayer(p, msg);
+                    try {
+                        JSONObject msg = new JSONObject();
+                        msg.put("requestResponse", false);
+                        msg.put("type", "insert");
+                        msg.put("card", card);
+                        tellPlayer(p, msg);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
                 case 20: case 21: case 22: case 23:
                     // case for play area
-                    int p = area - 20;
+                    p = area - 20;
                     played[p] = card;
                     setImage(area, card);
                     break;
@@ -341,6 +298,7 @@ public abstract class TableRunner implements Runnable {
             // 3. remove it
             // 4. consolidate the rest into a contiguous array
 
+            int p;
             switch (area) {
                 case 0:
                     // case for deck
@@ -365,36 +323,45 @@ public abstract class TableRunner implements Runnable {
                     break;
                 case 10: case 11: case 12: case 13:
                     // case for hand
-                    int p = area - 10;
+                    p = area - 10;
                     hand[p] = removeFromArray(card, hand[p], handLen[p]);
                     handLen[p]--;
-                    JSONObject msg = new JSONObject();
-                    msg.put("requestResponse", false);
-                    msg.put("type", "remove");
-                    msg.put("card", card);
-                    tellPlayer(p, msg);
+                    try {
+                        JSONObject msg = new JSONObject();
+                        msg.put("requestResponse", false);
+                        msg.put("type", "remove");
+                        msg.put("card", card);
+                        tellPlayer(p, msg);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
                 case 20: case 21: case 22: case 23:
                     // case for play
-                    int p = area - 20;
+                    p = area - 20;
                     played[p] = -1;
                     setImage(area, -1);
                     break;
             }
         }
 
-        public int requestMove(int player) {
+        public int requestMove(int player, boolean retry) {
             // request move from player
             // 1. find the player
             // 2. prompt for a move
             // 3. record the selection
             // 4. return to table
 
-            JSONObject msg = new JSONObject();
-            msg.put("requestResponse", true);
-            msg.put("type", "request");
-            JSONObject resp = tellPlayer(player, msg);
-            return resp.getInt("card");
+            try {
+                JSONObject msg = new JSONObject();
+                msg.put("requestResponse", true);
+                msg.put("type", "request");
+                msg.put("retried", retry);
+                JSONObject resp = tellPlayer(player, msg);
+                return resp.getInt("card");
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         public void updateScore(int player, int score) {
@@ -403,11 +370,15 @@ public abstract class TableRunner implements Runnable {
             // 2. find the score display
             // 3. update to the score
 
-            JSONObject msg = new JSONObject();
-            msg.put("requestResponse", false);
-            msg.put("type", "score");
-            msg.put("score", score);
-            tellPlayer(player, msg);
+            try {
+                JSONObject msg = new JSONObject();
+                msg.put("requestResponse", false);
+                msg.put("type", "score");
+                msg.put("score", score);
+                tellPlayer(player, msg);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         public void endGame() {
@@ -431,11 +402,15 @@ public abstract class TableRunner implements Runnable {
             }
 
             for (int p = 0; p < numPlayers; p++) {
-                JSONObject msg = new JSONObject();
-                msg.put("requestResponse", false);
-                msg.put("type", "end");
-                msg.put("win", isWinner[p]);
-                tellPlayer(p, msg);
+                try {
+                    JSONObject msg = new JSONObject();
+                    msg.put("requestResponse", false);
+                    msg.put("type", "end");
+                    msg.put("win", isWinner[p]);
+                    tellPlayer(p, msg);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
 
@@ -444,7 +419,7 @@ public abstract class TableRunner implements Runnable {
             // Fisher-Yates algorithm
 
             for (int i = deckLen - 1; i > 0; i--) {
-                int j = (Math.random() * (i+1));
+                int j = (int) (Math.random() * (i+1));
                 int temp = deck[j];
                 deck[j] = deck[i];
                 deck[i] = temp;

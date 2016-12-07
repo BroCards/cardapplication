@@ -196,6 +196,8 @@ public class GameStartingTable extends AppCompatActivity {
                 // reply
                 JSONObject reply = new JSONObject();
 
+                Log.d("ReplyRoutine", json.toString());
+
                 // check json
                 if (json.length() != 1 && json.has("IP")) {
                     reply.put("Success", false);

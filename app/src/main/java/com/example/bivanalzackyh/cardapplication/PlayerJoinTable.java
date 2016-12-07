@@ -6,6 +6,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,7 +36,6 @@ public class PlayerJoinTable extends AppCompatActivity {
         ipField = (EditText) findViewById(R.id.ip_number);
         portField = (EditText) findViewById(R.id.port_number);
 
-        // set function
         JoinButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,6 +50,10 @@ public class PlayerJoinTable extends AppCompatActivity {
                     return;
                 }
                 final int port = x;
+
+                Log.d("onclick", "Button pressed");
+                Log.d("onclick", targetIP);
+                Log.d("onclick", String.valueOf(port));
 
                 // Check-in
                 // get wifi information
@@ -74,6 +78,8 @@ public class PlayerJoinTable extends AppCompatActivity {
                             if (reply != null) {
                                 startPlaying(viewParam);
                             }
+
+                            startPlaying(null);
 
                         } catch (JSONException e) {
                             e.printStackTrace();

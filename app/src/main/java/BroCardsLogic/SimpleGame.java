@@ -1,6 +1,7 @@
 package BroCardsLogic;
 
 import android.app.Activity;
+import android.util.Log;
 
 import java.util.List;
 
@@ -15,6 +16,9 @@ public class SimpleGame extends TableRunner {
     // init
     public SimpleGame(List<Client> players, Activity c) {
         super(players, c);
+
+        Log.d("SimpleGame", String.valueOf(c));
+
         numPlayers = clients.size();
         b = new BroCards(numPlayers);
         

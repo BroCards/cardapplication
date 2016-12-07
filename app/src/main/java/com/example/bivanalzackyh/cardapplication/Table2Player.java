@@ -4,6 +4,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import BroCardsLogic.SimpleGame;
+import BroCardsNetworks.TableRunner;
+
 public class Table2Player extends Table {
 
     View viewDeck;
@@ -34,5 +37,8 @@ public class Table2Player extends Table {
         viewDiscard = (View) findViewById(R.id.viewDiscard);
         viewPlay1 = (View) findViewById(R.id.viewPlay1);
         viewPlay2 = (View) findViewById(R.id.viewPlay2);
+
+        Thread t = new Thread((TableRunner) new SimpleGame(clients, this));
+        t.start();
     }
 }

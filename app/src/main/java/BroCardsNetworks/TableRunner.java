@@ -37,10 +37,10 @@ public abstract class TableRunner implements Runnable {
     protected List<Client> clients;
     protected Activity activity;
 
-    public TableRunner(List<Client> participants, Activity activity) {
+    public TableRunner(List<Client> participants, Activity context) {
         // DANGER: the object is not actually copied
         clients = participants;
-        this.activity = activity;
+        this.activity = context;
     }
 
     private JSONObject communicate(int playerNum, String msg, boolean waitForReply) {
@@ -64,7 +64,7 @@ public abstract class TableRunner implements Runnable {
 
     protected JSONObject tellPlayer(int playerNum, JSONObject msg) throws JSONException {
         // check if need reply
-        boolean needReply = msg.getBoolean("needReply");
+        boolean needReply = msg.getBoolean("requestResponse");
 
         if (needReply) {
             tellPlayer(playerNum, msg.toString());
@@ -150,6 +150,7 @@ public abstract class TableRunner implements Runnable {
             hand = new int[numPlayers][52];
             handLen = new int[numPlayers];
             played = new int[numPlayers];
+            score = new int[numPlayers];
 
             for (int i = 0; i < 52; i++) {
                 deck[i] = -1;
@@ -239,10 +240,13 @@ public abstract class TableRunner implements Runnable {
         // not sure
         private void setImage(int area, int card) {
             View location = activity.findViewById(getAreaViewId(area));
+            Log.d("setImage", String.valueOf(area) + " " + String.valueOf(getAreaViewId(area)) + " " +
+                    String.valueOf(card) + " " + String.valueOf(getCardImageId(card)));
             if (card == -1) {
                 location.setBackground(null);
-                location.setBackgroundColor(0xffffffff); // white???
+                location.setBackgroundColor(0xffffff); // white???
             } else {
+                Log.d("setImage", String.valueOf(location) + " " + String.valueOf(activity.getDrawable(getCardImageId(card))));
                 location.setBackground(activity.getDrawable(getCardImageId(card)));
             }
         }

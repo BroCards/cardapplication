@@ -243,16 +243,12 @@ public abstract class TableRunner implements Runnable {
 
         // not sure
         private void setImage(int area, int card) {
-            int areaId = getAreaViewId(area);
-            int cardId = getCardImageId(card);
-            switch (numPlayers) {
-                case 2:
-                    // ide doesn't complain about calling activity.findViewById
-                    // nor get drawable
-//                    activity.findViewById()
-//                    activity.getDrawable()
-//                    setImage2P(areaId, cardId);
-                    // i want to call setImage2P in cardapplication/Table2Player.java, how
+            View location = activity.findViewById(getAreaViewId(area));
+            if (card == -1) {
+                location.setBackground(null);
+                location.setBackgroundColor(0xffffffff); // white???
+            } else {
+                location.setBackground(activity.getDrawable(getCardImageId(card)));
             }
         }
 

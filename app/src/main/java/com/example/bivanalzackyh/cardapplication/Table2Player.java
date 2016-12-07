@@ -35,14 +35,4 @@ public class Table2Player extends Table {
         viewPlay1 = (View) findViewById(R.id.viewPlay1);
         viewPlay2 = (View) findViewById(R.id.viewPlay2);
     }
-
-    public void setImage2P(int areaId, int cardId) {
-        View location = findViewById(areaId);
-        if (cardId == 0) {
-            location.setBackground(null);
-            location.setBackgroundColor(0xffffffff); // white???
-        } else {
-            location.setBackground(getDrawable(cardId));
-        }
-    }
 }

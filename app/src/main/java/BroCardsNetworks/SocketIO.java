@@ -1,9 +1,12 @@
 package BroCardsNetworks;
 
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.net.Socket;
 
 /**
@@ -17,17 +20,15 @@ class SocketIO {
     // send string message to a given socket
     static void send(Socket socket, String msg) throws IOException {
         // out data
-        OutputStreamWriter out = new OutputStreamWriter(socket.getOutputStream());
-        out.write(msg);
-
-        // message has been sent, over.
-        out.write("\r\n");
+        PrintWriter out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
+        out.println(msg);
     }
 
     // readLine: Socket -> String
     // read incoming line from given socket
     static String readLine(Socket socket) throws IOException {
         // input data
+        Log.d("Socket Readline", "called");
         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
         // read line

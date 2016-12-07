@@ -1,5 +1,7 @@
 package BroCardsNetworks;
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -55,6 +57,8 @@ public class Server {
 
             // read inquiry
             JSONObject inquiry = new JSONObject(SocketIO.readLine(socket));
+
+            Log.d("listen", inquiry.toString());
 
             // process
             JSONObject reply = r.processInquiry(inquiry);

@@ -14,6 +14,8 @@ import android.widget.EditText;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.concurrent.Semaphore;
+
 import BroCardsNetworks.Client;
 
 /**
@@ -26,6 +28,8 @@ public class PlayerJoinTable extends AppCompatActivity {
     EditText ipField;
     EditText portField;
 
+    Semaphore clicked;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,10 +40,14 @@ public class PlayerJoinTable extends AppCompatActivity {
         ipField = (EditText) findViewById(R.id.ip_number);
         portField = (EditText) findViewById(R.id.port_number);
 
+        clicked = new Semaphore(1);
+
         JoinButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // TODO: get destination IP address and port
+                if (!clicked.tryAcquire()) return;
+
                 final View viewParam = view;
                 final String targetIP = ipField.getText().toString();
                 int x;
@@ -69,21 +77,16 @@ public class PlayerJoinTable extends AppCompatActivity {
                             JSONObject send = new JSONObject();
                             send.put("IP", wifiInf.getIpAddress());
 
-                            // sendData
-                            client.sendData(send.toString(), true);
-
-                            // wait for data to be ready
-                            JSONObject reply = client.getResponseJson();
+                            JSONObject reply = client.sendData(send.toString(), true);
 
                             if (reply != null) {
                                 startPlaying(viewParam);
                             }
 
-                            startPlaying(null);
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                        clicked.release();
                     }
                 }).start();
             }

@@ -1,11 +1,12 @@
 package BroCardsNetworks;
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.util.concurrent.Semaphore;
 
 /**
  * Client
@@ -18,55 +19,41 @@ import java.util.concurrent.Semaphore;
 public class Client {
     private String dest;                // destination IP address
     private int PORT;                   // destination port
-    private Semaphore dataReady;        // semaphore in case of this class has been wrap in other thread
-    private JSONObject responseJson;    // response JSON
-
-    private boolean success;
 
     public Client(String destination, int port) {
         dest = destination;
         PORT = port;
-        dataReady = new Semaphore(0);
-        responseJson = null;
-        success  = false;
-    }
-
-    // reset: ->
-    // reset semaphore and success boolean
-    private void reset() {
-        while(dataReady.tryAcquire());
-        success = false;
     }
 
     // sendData: JSONObject ->
     // Send Data to server and wait for reply
-    public void sendData(String msg, boolean wait_for_reply) {
+    public JSONObject sendData(String msg, boolean wait_for_reply) {
         try {
-            reset();
-
             Socket socket = new Socket(dest, PORT);
 
             SocketIO.send(socket, msg);
 
+            JSONObject response = null;
+
+            Log.d("senddata", msg);
+            Log.d("senddata", "now if wait for reply");
 
             if (wait_for_reply) {
                 String reply = SocketIO.readLine(socket);
 
                 // convert to json
-                responseJson = new JSONObject(reply);
+                response = new JSONObject(reply);
             }
             // close
             socket.close();
 
-            success = true;
-
+            return response;
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            dataReady.release();
         }
+        return null;
     }
 
     // ListenNReply: ReplyRoutine ->
@@ -94,46 +81,28 @@ public class Client {
 
     // justListen: ->
     // Read line from server, convert to JSON and close
-    public void justListen() {
+    public JSONObject justListen() {
         try {
-            reset();
 
             Socket socket = new Socket(dest, PORT);
             String msg = SocketIO.readLine(socket);
 
-            responseJson = new JSONObject(msg);
-
             // close
             socket.close();
 
-            success = true;
+            return new JSONObject(msg);
+
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
-        } finally {
-            dataReady.release();
         }
+        return null;
     }
 
     // JustSend: JSONObject ->
     // Send JsonObject to server and close
     public void justSend(JSONObject jsonObject) {
         sendData(jsonObject.toString(), false);
-    }
-
-    // getResponseJson: -> JSONObject
-    // when call
-    public JSONObject getResponseJson() {
-        try {
-            dataReady.acquire();
-            if (success) {
-                return responseJson;
-            }
-            return null;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 }

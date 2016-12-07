@@ -210,9 +210,6 @@ public class GameStartingTable extends AppCompatActivity {
                 String playerName = String.format(Locale.ENGLISH, "Player %d", participants.length() + 1);
                 reply.put("Name", playerName);
 
-                // put JSONObject into the list
-                participants.put(json);
-
                 return reply;
             } catch (JSONException e) {
                 e.printStackTrace();

@@ -47,13 +47,8 @@ public abstract class TableRunner implements Runnable {
         // make request
         Client c = clients.get(playerNum);
 
-        c.sendData(msg, waitForReply);
+        JSONObject toRet = c.sendData(msg, waitForReply);;
 
-        JSONObject toRet = null;
-
-        if (waitForReply) {
-            toRet = c.getResponseJson();
-        }
         return toRet;
     }
 

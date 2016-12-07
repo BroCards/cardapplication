@@ -22,23 +22,29 @@ public class PlayerChoosingGame extends AppCompatActivity {
         listview = (ListView) findViewById(R.id.listview);
         description_tv = (TextView) findViewById(R.id.description_tv);
 
-        final String[] games = {"Cangkul", "Mini-Hearts"};
+        final String[] games = {
+                "Cangkul",
+                "Mini-Hearts",
+                "Simple Game",
+        };
 
         // game_class contains the class name of those games
-        final String[] games_class = {"BroCardsLogic.CangKul", "BroCardsLogic.Mini_Hearts"};
+        final String[] games_class = {
+                "BroCardsLogic.CangKul",
+                "BroCardsLogic.MiniHearts",
+                "BroCardsLogic.SimpleGame",
+        };
 
         final String[] descriptions = {
-            "Author: Ivan\n\n" +
-            "Description:\n" +
-            "Players play a card onto a trick, with the highest card leading the next trick. " +
-            "However, if a player cannot follow suit, they must draw from the stock until they find a matching card, " +
-            "or otherwise take all played cards into their hand. First player to empty their hand wins.",
+                "Players play a card onto a trick, with the highest card leading the next trick. " +
+                "However, if a player cannot follow suit, they must draw from the stock until they find a matching card, " +
+                "or otherwise take all played cards into their hand. First player to empty their hand wins.",
             
-            "Author: Ivan\n\n" +
-            "Description:\n" +
-            "Players play a card onto a trick. Highest card of the leading suit takes the cards played. " +
-            "Hearts are worth 1 penalty point each, and Queen of Spades is worth 13. " +
-            "Player that takes the least amount of penalty points wins."
+                "Players play a card onto a trick. Highest card of the leading suit takes the cards played. " +
+                "Hearts are worth 1 penalty point each, and Queen of Spades is worth 13. " +
+                "Player that takes the least amount of penalty points wins.",
+
+                "Just a test game. Receive a card. Play that card. Highest card wins.",
         };
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, games);
 

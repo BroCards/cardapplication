@@ -111,6 +111,8 @@ public class PlayerHand extends AppCompatActivity {
         holdingCard = new ArrayList<>();
         adapter = new MyAdapter();
 
+        mplayer_card.setAdapter(adapter);
+
         playerName.setText(getIntent().getExtras().getString("Name"));
 
         // start server
@@ -198,7 +200,9 @@ public class PlayerHand extends AppCompatActivity {
                 if (clickable.tryAcquire()) {
                     //for now it's just getting card disappear when being clicked
                     //should be updated later on
-                    selectedCard = (int) v.getTag(R.id.activity_player_hand);
+                    int index = (int) v.getTag(R.id.activity_player_hand);
+
+                    selectedCard = holdingCard.get(index);
 
                     //still something wrong in here
                     //anyway I will be back on this later on
@@ -242,7 +246,7 @@ public class PlayerHand extends AppCompatActivity {
                         });
                         break;
                     case "remove":
-                        final int cardNo2 = holdingCard.indexOf(json.getInt("score"));
+                        final int cardNo2 = card;
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -292,5 +296,11 @@ public class PlayerHand extends AppCompatActivity {
 
             return null;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        listenServer.exit();
     }
 }

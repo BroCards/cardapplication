@@ -66,8 +66,8 @@ public abstract class TableRunner implements Runnable {
         // check if need reply
         boolean needReply = msg.getBoolean("requestResponse");
 
-        if (needReply) {
-            tellPlayer(playerNum, msg.toString());
+        if (!needReply) {
+            communicate(playerNum, msg.toString(), false);
             return null;
         }
 
@@ -238,17 +238,24 @@ public abstract class TableRunner implements Runnable {
         }
 
         // not sure
-        private void setImage(int area, int card) {
-            View location = activity.findViewById(getAreaViewId(area));
-            Log.d("setImage", String.valueOf(area) + " " + String.valueOf(getAreaViewId(area)) + " " +
-                    String.valueOf(card) + " " + String.valueOf(getCardImageId(card)));
-            if (card == -1) {
-                location.setBackground(null);
-                location.setBackgroundColor(0xffffff); // white???
-            } else {
-                Log.d("setImage", String.valueOf(location) + " " + String.valueOf(activity.getDrawable(getCardImageId(card))));
-                location.setBackground(activity.getDrawable(getCardImageId(card)));
-            }
+        private void setImage(int a, int c) {
+            final int area = a;
+            final int card = c;
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    View location = activity.findViewById(getAreaViewId(area));
+                    Log.d("setImage", String.valueOf(area) + " " + String.valueOf(getAreaViewId(area)) + " " +
+                            String.valueOf(card) + " " + String.valueOf(getCardImageId(card)));
+                    if (card == -1) {
+                        location.setBackground(null);
+                        location.setBackgroundColor(0xffffff); // white???
+                    } else {
+                        Log.d("setImage", String.valueOf(location) + " " + String.valueOf(activity.getDrawable(getCardImageId(card))));
+                        location.setBackground(activity.getDrawable(getCardImageId(card)));
+                    }
+                }
+            });
         }
 
         public void insertCard(int card, int area) {
@@ -403,6 +410,9 @@ public abstract class TableRunner implements Runnable {
                     isWinner[i] = true;
                 }
             }
+
+            Log.d("endGame", String.valueOf(score[0]) + " " + String.valueOf(score[1]) + " " +
+                    String.valueOf(isWinner[0]) + " " + String.valueOf(isWinner[1]));
 
             for (int p = 0; p < numPlayers; p++) {
                 try {

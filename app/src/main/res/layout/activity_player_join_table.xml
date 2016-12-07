@@ -21,16 +21,6 @@
         android:layout_below="@+id/ip_et"
         android:layout_alignParentStart="true" />
 
-    <Button
-        android:text="Join by IP Address"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/game_start_btn"
-        android:layout_marginTop="200dp"
-        android:layout_below="@+id/join_table_btn"
-        android:layout_alignParentStart="true"
-        android:onClick="game_start_player" />
-
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -53,4 +43,12 @@
         android:layout_marginTop="0dp"
         android:layout_below="@+id/ip_number"
         android:layout_alignParentStart="true" />
+    <Button
+        android:text="Join by IP Address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/game_start_btn"
+        android:layout_marginTop="200dp"
+        android:layout_alignParentStart="true"
+        android:onClick="game_start_player" />
 </RelativeLayout>

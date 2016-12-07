@@ -154,7 +154,7 @@ public class GameStartingTable extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
 
-        serverThread.interrupt();
+//        serverThread.interrupt();
 
         if (server != null) {
             server.exit();

@@ -1,28 +1,18 @@
 package com.example.bivanalzackyh.cardapplication;
 
-import android.app.Activity;
-import android.app.Service;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.IBinder;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.TableRow;
 import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
 import BroCardsNetworks.Client;
-import BroCardsNetworks.TableRunner;
 
 /**
  * Table Class

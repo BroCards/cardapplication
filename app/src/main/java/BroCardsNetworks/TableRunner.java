@@ -23,6 +23,8 @@ import org.json.JSONObject;
 
 import java.util.List;
 
+import BroCardsNetworks.Client;
+
 /**
  * TableRunner
  * Use to run the game and communicate between player and central table
@@ -33,10 +35,12 @@ import java.util.List;
 public abstract class TableRunner implements Runnable {
 
     protected List<Client> clients;
+    protected Activity activity;
 
-    public TableRunner(List<Client> participants) {
+    public TableRunner(List<Client> participants, Activity activity) {
         // DANGER: the object is not actually copied
         clients = participants;
+        this.activity = activity;
     }
 
     private JSONObject communicate(int playerNum, String msg, boolean waitForReply) {
@@ -243,7 +247,11 @@ public abstract class TableRunner implements Runnable {
             int cardId = getCardImageId(card);
             switch (numPlayers) {
                 case 2:
-                    setImage2P(areaId, cardId);
+                    // ide doesn't complain about calling activity.findViewById
+                    // nor get drawable
+//                    activity.findViewById()
+//                    activity.getDrawable()
+//                    setImage2P(areaId, cardId);
                     // i want to call setImage2P in cardapplication/Table2Player.java, how
             }
         }

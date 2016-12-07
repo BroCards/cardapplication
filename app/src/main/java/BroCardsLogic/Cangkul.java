@@ -1,6 +1,7 @@
 package BroCardsLogic;
 
-import java.lang.Math;
+import android.app.Activity;
+
 import java.util.List;
 
 import BroCardsNetworks.Client;
@@ -12,8 +13,8 @@ public class Cangkul extends TableRunner {
     private int numPlayers;
     
     // init
-    public Cangkul(List<Client> players) {
-        super(players);
+    public Cangkul(List<Client> players, Activity c) {
+        super(players, c);
         numPlayers = clients.size();
         b = new BroCards(numPlayers);
         for (int card = 0; card < 52; card++)

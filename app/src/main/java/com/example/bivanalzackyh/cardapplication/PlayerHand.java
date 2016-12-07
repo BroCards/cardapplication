@@ -74,7 +74,8 @@ public class PlayerHand extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-    private void removeCard(int position) {
+    private void removeCard(int card) {
+        int position = holdingCard.indexOf(card);
         holdingCard.remove(position);
         drawableID.remove(position);
 

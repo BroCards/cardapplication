@@ -374,17 +374,18 @@ public abstract class TableRunner implements Runnable {
             }
         }
 
-        public void updateScore(int player, int score) {
+        public void updateScore(int player, int s) {
             // update score of player
             // 1. find the player
             // 2. find the score display
             // 3. update to the score
 
+            score[player] = s;
             try {
                 JSONObject msg = new JSONObject();
                 msg.put("requestResponse", false);
                 msg.put("type", "score");
-                msg.put("score", score);
+                msg.put("score", s);
                 tellPlayer(player, msg);
             } catch (JSONException e) {
                 throw new RuntimeException(e);
@@ -398,13 +399,15 @@ public abstract class TableRunner implements Runnable {
 
             int maxscore = score[0];
             boolean[] isWinner = new boolean[numPlayers];
-            for (int p = 0; p < numPlayers; p++) isWinner[p] = false;
+            for (int p = 0; p < numPlayers; p++)
+                isWinner[p] = false;
             isWinner[0] = true;
 
             for (int i = 1; i < numPlayers; i++) {
                 if (score[i] > maxscore) {
                     maxscore = score[i];
-                    for (int p = 0; p < numPlayers; p++) isWinner[p] = false;
+                    for (int p = 0; p < numPlayers; p++)
+                        isWinner[p] = false;
                     isWinner[i] = true;
                 } else if (score[i] == maxscore) {
                     isWinner[i] = true;

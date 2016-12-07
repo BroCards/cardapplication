@@ -64,7 +64,10 @@ public class Server {
             JSONObject reply = r.processInquiry(inquiry);
 
             // reply
-            SocketIO.send(socket, reply.toString());
+            if (reply != null)
+                SocketIO.send(socket, reply.toString());
+            else
+                SocketIO.send(socket, "\n");
 
             socket.close();
 

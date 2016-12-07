@@ -111,6 +111,8 @@ public class PlayerHand extends AppCompatActivity {
         holdingCard = new ArrayList<>();
         adapter = new MyAdapter();
 
+        mplayer_card.setAdapter(adapter);
+
         playerName.setText(getIntent().getExtras().getString("Name"));
 
         // start server

@@ -21,7 +21,9 @@ class SocketIO {
     static void send(Socket socket, String msg) throws IOException {
         // out data
         PrintWriter out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
-        out.println(msg);
+        out.println(msg.toCharArray());
+        out.print('\r');
+        out.flush();
     }
 
     // readLine: Socket -> String
@@ -30,6 +32,7 @@ class SocketIO {
         // input data
         Log.d("Socket Readline", "called");
         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
 
         // read line
         return in.readLine();

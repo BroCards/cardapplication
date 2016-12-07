@@ -111,6 +111,8 @@ public class PlayerHand extends AppCompatActivity {
         holdingCard = new ArrayList<>();
         adapter = new MyAdapter();
 
+        playerName.setText(getIntent().getExtras().getString("Name"));
+
         // start server
         Thread serverThread = new Thread(new Runnable() {
             @Override

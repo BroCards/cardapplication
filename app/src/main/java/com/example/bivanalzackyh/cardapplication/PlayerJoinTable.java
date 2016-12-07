@@ -80,7 +80,7 @@ public class PlayerJoinTable extends AppCompatActivity {
                             JSONObject reply = client.sendData(send.toString(), true);
 
                             if (reply != null) {
-                                startPlaying(viewParam);
+                                startPlaying(viewParam, reply.getString("Name"));
                             }
 
                         } catch (JSONException e) {
@@ -94,8 +94,9 @@ public class PlayerJoinTable extends AppCompatActivity {
 
     }
 
-    void startPlaying(View v){
+    void startPlaying(View v, String reply){
         Intent i = new Intent(this, PlayerHand.class);
+        i.putExtra("Name", reply);
         startActivity(i);
     }
 }

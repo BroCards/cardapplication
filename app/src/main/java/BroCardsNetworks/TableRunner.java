@@ -53,15 +53,6 @@ public abstract class TableRunner implements Runnable {
     }
 
 
-    protected void tellPlayer(final int playerNum, final String msg) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                communicate(playerNum, msg, false);
-            }
-        }).start();
-    }
-
     protected JSONObject tellPlayer(int playerNum, JSONObject msg) throws JSONException {
         // check if need reply
         boolean needReply = msg.getBoolean("requestResponse");

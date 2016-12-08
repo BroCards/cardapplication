@@ -26,7 +26,31 @@ import BroCardsNetworks.TableRunner;
 
 class Table extends AppCompatActivity {
     protected List<Client> clients = new ArrayList<>();
+    protected String gameClass;
 
+    protected TableRunner startGameThread(Activity activity) {
+        try {
+            Class<?> game = Class.forName(gameClass);
+
+            Object gameObj = game
+                    .getConstructor(List.class, Activity.class)
+                    .newInstance(clients, activity);
+
+            return (TableRunner) gameObj;
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "GAME CLASS NOT FOUND!", Toast.LENGTH_LONG).show();
+            return null;
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Class is not properly defined", Toast.LENGTH_LONG).show();
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +60,7 @@ class Table extends AppCompatActivity {
             // get information
             Bundle extra = getIntent().getExtras();
 
-            String gameClass = extra.getString("GAME");
+            gameClass = extra.getString("GAME");
             String jsonArrayStr = extra.getString("Participants");
 
             JSONArray participants = new JSONArray(jsonArrayStr);
@@ -52,27 +76,9 @@ class Table extends AppCompatActivity {
 
             }
 
-            // game object
-//            Class<?> game = Class.forName(gameClass);
-//
-//            Object gameObj = game
-//                    .getConstructor(List.class, Activity.class)
-//                    .newInstance(clients, this);
-
-            // start simple game for now
-
-            // start
-//            Thread t = new Thread((TableRunner) new SimpleGame(clients, this));
-//            t.start();
         } catch (JSONException e) {
             e.printStackTrace();
             Toast.makeText(this, "Something wrong with JSON", Toast.LENGTH_LONG).show();
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//            Toast.makeText(this, "GAME CLASS NOT FOUND!", Toast.LENGTH_LONG).show();
-//        } catch (NoSuchMethodException e) {
-//            e.printStackTrace();
-//            Toast.makeText(this, "Class is not properly defined", Toast.LENGTH_LONG).show();
         } catch (Exception e) {
             e.printStackTrace();
         }

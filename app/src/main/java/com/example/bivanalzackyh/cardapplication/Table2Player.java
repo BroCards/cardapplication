@@ -38,7 +38,6 @@ public class Table2Player extends Table {
         viewPlay1 = (View) findViewById(R.id.viewPlay1);
         viewPlay2 = (View) findViewById(R.id.viewPlay2);
 
-        Thread t = new Thread((TableRunner) new SimpleGame(clients, this));
-        t.start();
+        new Thread(startGameThread(this)).start();
     }
 }

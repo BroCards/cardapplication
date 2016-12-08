@@ -36,5 +36,7 @@ public class Table3Player extends Table {
         viewPlay1 = (View) findViewById(R.id.viewPlay1);
         viewPlay2 = (View) findViewById(R.id.viewPlay2);
         viewPlay3 = (View) findViewById(R.id.viewPlay3);
+
+        new Thread(startGameThread(this)).start();
     }
 }

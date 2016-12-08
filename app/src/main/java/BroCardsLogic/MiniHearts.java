@@ -97,7 +97,7 @@ public class MiniHearts extends TableRunner {
             // ask each player to play a card
             for (i = 0; i < numPlayers; i++) {
                 currPlayer = (startPlayer + i) % numPlayers;
-                
+
                 if ((trick == 0) && (i == 0)) {
                     
                     // special case for first card played: must play lowest card
@@ -106,7 +106,7 @@ public class MiniHearts extends TableRunner {
                         selectedCard = b.requestMove(currPlayer, retry);
                         retry = true;
                     } while (selectedCard != 13*(4-numPlayers));
-                    
+
                 } else {
                     
                     // find card of playable suit; if none, play anything
@@ -131,7 +131,11 @@ public class MiniHearts extends TableRunner {
                         retry = true;
                     } while (!matchSuit(selectedCard, allowedSuit));
                 }
-                
+
+                if ((trick != 0) && (i == 0)) {
+                    discardPlays();
+                }
+
                 // play card; also, if first player, this sets the lead suit
                 playCard(selectedCard, currPlayer);
                 if (i == 0)
@@ -157,11 +161,8 @@ public class MiniHearts extends TableRunner {
                 }
             }
             score[winner] += scoreOfTrick;
-            b.updateScore(winner, scoreOfTrick);
+            b.updateScore(winner, score[winner]);
             startPlayer = winner;
-            
-            // discard plays
-            discardPlays();
         }
         
         // end game

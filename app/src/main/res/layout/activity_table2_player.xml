@@ -37,38 +37,36 @@
         android:layout_marginBottom="12dp" />
 
     <View
-        android:id="@+id/viewDeck"
-        android:layout_width="60dp"
-        android:layout_height="84dp"
-        android:background="@drawable/cardback"
-        android:layout_marginEnd="64dp"
-        android:layout_alignTop="@+id/viewDiscard"
-        android:layout_toStartOf="@+id/viewDiscard" />
-
-    <View
-        android:id="@+id/viewDiscard"
-        android:layout_width="60dp"
-        android:layout_height="84dp"
-        android:background="#ffff0000"
-        android:layout_marginEnd="184dp"
-        android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true" />
-
-    <View
         android:id="@+id/viewPlay1"
         android:layout_width="60dp"
         android:layout_height="84dp"
         android:background="#ffff00ff"
-        android:layout_marginEnd="39dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignEnd="@+id/viewDeck" />
+        android:layout_below="@+id/textView5"
+        android:layout_centerHorizontal="true" />
 
     <View
         android:id="@+id/viewPlay2"
         android:layout_width="60dp"
         android:layout_height="84dp"
         android:background="#ff0000ff"
-        android:layout_marginStart="29dp"
-        android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/viewDeck" />
+        android:layout_above="@+id/textView6"
+        android:layout_alignStart="@+id/viewPlay1" />
+
+    <View
+        android:id="@+id/viewDiscard"
+        android:layout_width="60dp"
+        android:layout_height="84dp"
+        android:background="#ffff0000"
+        android:layout_alignTop="@+id/viewDeck"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="250dp" />
+
+    <View
+        android:id="@+id/viewDeck"
+        android:layout_width="60dp"
+        android:layout_height="84dp"
+        android:background="@drawable/cardback"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/viewPlay2" />
+
 </RelativeLayout>

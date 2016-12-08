@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bivanalzackyh.cardapplication.R;
-import com.example.bivanalzackyh.cardapplication.Table2Player;
+import com.example.bivanalzackyh.cardapplication.Table;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -419,6 +419,13 @@ public abstract class TableRunner implements Runnable {
                     throw new RuntimeException(e);
                 }
             }
+
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    ((Table) activity).go_back_to_where_the_app_start(null);
+                }
+            });
         }
 
         public void shuffleDeck() {

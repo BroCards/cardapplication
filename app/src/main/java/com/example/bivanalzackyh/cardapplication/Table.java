@@ -1,8 +1,10 @@
 package com.example.bivanalzackyh.cardapplication;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -24,7 +26,7 @@ import BroCardsNetworks.TableRunner;
  * Created by Chitphentom on 12/4/2016 AD.
  */
 
-class Table extends AppCompatActivity {
+public class Table extends AppCompatActivity {
     protected List<Client> clients = new ArrayList<>();
     protected String gameClass;
 
@@ -50,6 +52,12 @@ class Table extends AppCompatActivity {
             return null;
         }
 
+    }
+
+
+    public void go_back_to_where_the_app_start(View v){
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
     }
 
     @Override

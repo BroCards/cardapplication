@@ -30,7 +30,7 @@ public class PlayerChoosingGame extends AppCompatActivity {
 
         // game_class contains the class name of those games
         final String[] games_class = {
-                "BroCardsLogic.CangKul",
+                "BroCardsLogic.Cangkul",
                 "BroCardsLogic.MiniHearts",
                 "BroCardsLogic.SimpleGame",
         };

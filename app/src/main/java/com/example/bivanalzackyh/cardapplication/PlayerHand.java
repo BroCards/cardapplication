@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -32,6 +33,9 @@ public class PlayerHand extends AppCompatActivity {
     private ArrayList<Integer> holdingCard;
     private ArrayList<Integer> drawableID;
     private RecyclerView.Adapter adapter;
+
+    // status
+    private TextView playerStatus;
 
     // server stuffs
     private Server listenServer;
@@ -104,6 +108,7 @@ public class PlayerHand extends AppCompatActivity {
 
         playerScore = (TextView) findViewById(R.id.playerScore);
         playerName = (TextView) findViewById(R.id.playerHandName);
+        playerStatus = (TextView) findViewById(R.id.playerStatus);
 
         // semaphores
         clickable = new Semaphore(0);
@@ -205,6 +210,9 @@ public class PlayerHand extends AppCompatActivity {
 
                     selectedCard = holdingCard.get(index);
 
+                    // remove your turn status
+                    playerStatus.setText("------");
+
                     //still something wrong in here
                     //anyway I will be back on this later on
                     // card removed
@@ -261,6 +269,12 @@ public class PlayerHand extends AppCompatActivity {
                             @Override
                             public void run() {
                                 makeToast("Your Turn! Select card to move");
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        playerStatus.setText("Now, it is your turn!");
+                                    }
+                                });
                                 clickable.release();
                             }
                         });

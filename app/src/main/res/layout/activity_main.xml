@@ -15,7 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:id="@+id/textView"
-        android:textSize="36sp"
+        android:textSize="54sp"
+        android:textColor="#ff00ff00"
         android:textAlignment="center"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
@@ -24,27 +25,24 @@
     <Button
         android:text="Create Table"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:id="@+id/create_table_btn"
+        android:backgroundTint="#ff00ffff"
         android:onClick="create_table"
-        android:layout_alignBottom="@+id/textView"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:text="Join Table"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/join_table_btn"
-        android:onClick="join_table"
+        android:textSize="24sp"
+        android:layout_marginTop="50dp"
         android:layout_below="@+id/textView"
         android:layout_alignParentStart="true" />
 
     <Button
-        android:text="Game Manager"
+        android:text="Join Table"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/game_manager_btn"
-        android:onClick="game_manager"
-        android:layout_below="@+id/join_table_btn"
+        android:layout_height="100dp"
+        android:id="@+id/join_table_btn"
+        android:backgroundTint="#ffffff00"
+        android:onClick="join_table"
+        android:textSize="24sp"
+        android:layout_below="@+id/create_table_btn"
         android:layout_alignParentStart="true" />
+
 </RelativeLayout>

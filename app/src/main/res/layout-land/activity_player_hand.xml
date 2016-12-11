@@ -25,7 +25,7 @@
         android:text="0"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="25dp"
+        android:textSize="15dp"
         android:id="@+id/playerScore"
         android:textAlignment="center"
         android:layout_alignParentBottom="true"
@@ -43,21 +43,21 @@
         android:textColor="@android:color/holo_red_light"
         android:lineSpacingExtra="14sp" />
 
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/player_card"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true" />
-
     <TextView
         android:text="The current score is:"
         android:layout_width="match_parent"
-        android:textSize="25dp"
+        android:textSize="15dp"
         android:layout_height="wrap_content"
         android:id="@+id/textView9"
         android:textAlignment="center"
         android:layout_above="@+id/playerScore"
+        android:layout_alignParentStart="true" />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="150sp"
+        android:id="@+id/player_card"
+        android:layout_below="@+id/playerStatus"
         android:layout_alignParentStart="true" />
 
 </RelativeLayout>
